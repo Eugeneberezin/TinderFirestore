@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
+        //header
         let subViews = [UIColor.gray, UIColor.darkGray, UIColor.black].map {
             (color) -> UIView in
             let v = UIView()
@@ -22,6 +22,7 @@ class ViewController: UIViewController {
             
         }
         
+        //header
         let topStackView = UIStackView(arrangedSubviews: subViews)
         
         topStackView.distribution = .fillEqually
@@ -35,11 +36,10 @@ class ViewController: UIViewController {
         yellowViw.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
         let stackView = UIStackView(arrangedSubviews: [topStackView, blueView, yellowViw])
-        //stackView.distribution = .fillEqually
+        
+
         stackView.axis = .vertical
         view.addSubview(stackView)
-       
-        
         
         stackView.fillSuperview()
         

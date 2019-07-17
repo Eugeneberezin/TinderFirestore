@@ -47,6 +47,7 @@
 		0506659022DE09A5000CBD5F /* TinderFireStoreEBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderFireStoreEBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderFireStoreEBUITests.swift; sourceTree = "<group>"; };
 		0506659622DE09A5000CBD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		057B354222DEAC3100DFB567 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +98,7 @@
 		0506657322DE09A3000CBD5F /* TinderFireStoreEB */ = {
 			isa = PBXGroup;
 			children = (
+				057B353F22DEABEB00DFB567 /* Extensions */,
 				0506657422DE09A3000CBD5F /* AppDelegate.swift */,
 				0506657622DE09A3000CBD5F /* ViewController.swift */,
 				0506657822DE09A3000CBD5F /* Main.storyboard */,
@@ -123,6 +125,14 @@
 				0506659622DE09A5000CBD5F /* Info.plist */,
 			);
 			path = TinderFireStoreEBUITests;
+			sourceTree = "<group>";
+		};
+		057B353F22DEABEB00DFB567 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				057B354222DEAC3100DFB567 /* Extensions+UIView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

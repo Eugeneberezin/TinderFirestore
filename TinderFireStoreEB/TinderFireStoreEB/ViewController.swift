@@ -13,25 +13,38 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let redView = UIView()
-        redView.backgroundColor = .red
+    
+        let subViews = [UIColor.gray, UIColor.darkGray, UIColor.black].map {
+            (color) -> UIView in
+            let v = UIView()
+            v.backgroundColor = color
+            return v
+            
+        }
+        
+        let topStackView = UIStackView(arrangedSubviews: subViews)
+        
+        topStackView.distribution = .fillEqually
+        topStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
         let blueView = UIView()
         blueView.backgroundColor = .blue
         
-        let stackView = UIStackView(arrangedSubviews: [redView, blueView])
-        stackView.distribution = .fillEqually
+        let yellowViw = UIView()
+        yellowViw.backgroundColor = .yellow
+        yellowViw.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        
+        let stackView = UIStackView(arrangedSubviews: [topStackView, blueView, yellowViw])
+        //stackView.distribution = .fillEqually
         stackView.axis = .vertical
         view.addSubview(stackView)
+       
         
-        //stackView.frame = .init(x: 0, y: 0, width: 300, height: 300)
+        
+        stackView.fillSuperview()
         
         //autolayout
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+       
         
         
         

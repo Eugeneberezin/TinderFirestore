@@ -21,6 +21,12 @@ class HomeBottomControlsStackView: UIStackView {
             return button
         }
         
+        subViews[0].accessibilityIdentifier = "REFRESH_BUTTON"
+        subViews[1].accessibilityIdentifier = "X_BUTTON"
+        subViews[2].accessibilityIdentifier = "STAR_BUTTON"
+        subViews[3].accessibilityIdentifier = "HEART_BUTTON"
+        subViews[4].accessibilityIdentifier = "STORM_BUTTON"
+        
 
         
         subViews.forEach { (v) in

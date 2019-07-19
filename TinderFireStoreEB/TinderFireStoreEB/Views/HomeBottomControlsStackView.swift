@@ -18,6 +18,7 @@ class HomeBottomControlsStackView: UIStackView {
         let subViews = [#imageLiteral(resourceName: "refresh_circle"), #imageLiteral(resourceName: "dismiss_circle"), #imageLiteral(resourceName: "super_like_circle"), #imageLiteral(resourceName: "like_circle"), #imageLiteral(resourceName: "boost_circle")].map { (img) -> UIView in
             let button = UIButton(type: .system)
             button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
+            button.isAccessibilityElement = true
             return button
         }
         
@@ -25,10 +26,10 @@ class HomeBottomControlsStackView: UIStackView {
         subViews[1].accessibilityIdentifier = "X_BUTTON"
         subViews[2].accessibilityIdentifier = "STAR_BUTTON"
         subViews[3].accessibilityIdentifier = "HEART_BUTTON"
-        subViews[4].accessibilityIdentifier = "STORM_BUTTON"
+        subViews[4].accessibilityIdentifier = "BOOST_BUTTON"
         
-
         
+    
         subViews.forEach { (v) in
             addArrangedSubview(v)
         }

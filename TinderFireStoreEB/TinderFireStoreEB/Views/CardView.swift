@@ -21,7 +21,8 @@ class CardView: UIView {
         // custom drawing code
         layer.cornerRadius = 10
         clipsToBounds = true
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .white
         
         addSubview(imageView)
         imageView.fillSuperview()

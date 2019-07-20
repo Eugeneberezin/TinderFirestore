@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0506657522DE09A3000CBD5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506657422DE09A3000CBD5F /* AppDelegate.swift */; };
-		0506657722DE09A3000CBD5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506657622DE09A3000CBD5F /* ViewController.swift */; };
+		0506657722DE09A3000CBD5F /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506657622DE09A3000CBD5F /* HomeController.swift */; };
 		0506657A22DE09A3000CBD5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0506657822DE09A3000CBD5F /* Main.storyboard */; };
 		0506657C22DE09A5000CBD5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0506657B22DE09A5000CBD5F /* Assets.xcassets */; };
 		0506657F22DE09A5000CBD5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0506657D22DE09A5000CBD5F /* LaunchScreen.storyboard */; };
 		0506658A22DE09A5000CBD5F /* TinderFireStoreEBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506658922DE09A5000CBD5F /* TinderFireStoreEBTests.swift */; };
 		0506659522DE09A5000CBD5F /* TinderFireStoreEBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */; };
+		0555A6A422E2DCB80091E712 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A322E2DCB80091E712 /* User.swift */; };
 		057B354422DED1D700DFB567 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354322DED1D700DFB567 /* Extensions+UIView.swift */; };
 		057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */; };
 		057B354922E0010B00DFB567 /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354822E0010B00DFB567 /* TopNavigationStackView.swift */; };
@@ -40,7 +41,7 @@
 /* Begin PBXFileReference section */
 		0506657122DE09A3000CBD5F /* TinderFireStoreEB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinderFireStoreEB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0506657422DE09A3000CBD5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0506657622DE09A3000CBD5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0506657622DE09A3000CBD5F /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		0506657922DE09A3000CBD5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0506657B22DE09A5000CBD5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0506657E22DE09A5000CBD5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		0506659022DE09A5000CBD5F /* TinderFireStoreEBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderFireStoreEBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderFireStoreEBUITests.swift; sourceTree = "<group>"; };
 		0506659622DE09A5000CBD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0555A6A322E2DCB80091E712 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		057B354322DED1D700DFB567 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extensions+UIView.swift"; path = "../../../../../iOS course/SwipeMatchFirestoreLBTA/SwipeMatchFirestoreLBTA/Extensions/Extensions+UIView.swift"; sourceTree = "<group>"; };
 		057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlsStackView.swift; sourceTree = "<group>"; };
 		057B354822E0010B00DFB567 /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
@@ -105,10 +107,11 @@
 		0506657322DE09A3000CBD5F /* TinderFireStoreEB */ = {
 			isa = PBXGroup;
 			children = (
+				0555A6A222E2DC760091E712 /* Model */,
 				057B354522DFF66700DFB567 /* Views */,
 				057B353F22DEABEB00DFB567 /* Extensions */,
 				0506657422DE09A3000CBD5F /* AppDelegate.swift */,
-				0506657622DE09A3000CBD5F /* ViewController.swift */,
+				0506657622DE09A3000CBD5F /* HomeController.swift */,
 				0506657822DE09A3000CBD5F /* Main.storyboard */,
 				0506657B22DE09A5000CBD5F /* Assets.xcassets */,
 				0506657D22DE09A5000CBD5F /* LaunchScreen.storyboard */,
@@ -133,6 +136,14 @@
 				0506659622DE09A5000CBD5F /* Info.plist */,
 			);
 			path = TinderFireStoreEBUITests;
+			sourceTree = "<group>";
+		};
+		0555A6A222E2DC760091E712 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0555A6A322E2DCB80091E712 /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		057B353F22DEABEB00DFB567 /* Extensions */ = {
@@ -284,12 +295,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0506657722DE09A3000CBD5F /* ViewController.swift in Sources */,
+				0506657722DE09A3000CBD5F /* HomeController.swift in Sources */,
 				057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */,
 				0506657522DE09A3000CBD5F /* AppDelegate.swift in Sources */,
 				057B354422DED1D700DFB567 /* Extensions+UIView.swift in Sources */,
 				057B354B22E1659300DFB567 /* CardView.swift in Sources */,
 				057B354922E0010B00DFB567 /* TopNavigationStackView.swift in Sources */,
+				0555A6A422E2DCB80091E712 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

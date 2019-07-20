@@ -40,6 +40,7 @@ class HomeController: UIViewController {
             attributedText.append(NSAttributedString(string: "\n\(user.profession)", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .regular)]))
             
             cardView.informationLabel.attributedText = attributedText
+            
             cardsDeckView.addSubview(cardView)
             cardView.fillSuperview()
         }

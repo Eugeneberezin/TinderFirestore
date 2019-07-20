@@ -29,7 +29,7 @@ class HomeBottomControlsStackView: UIStackView {
         subViews[4].accessibilityIdentifier = "BOOST_BUTTON"
         
         
-    
+        
         subViews.forEach { (v) in
             addArrangedSubview(v)
         }

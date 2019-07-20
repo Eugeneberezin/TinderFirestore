@@ -28,15 +28,6 @@ class TinderFireStoreEBUITests: XCTestCase {
 
     func testExample() {
         
-        let app = XCUIApplication()
-        app.buttons["REFRESH_BUTTON"].tap()
-        app.buttons["X_BUTTON"].tap()
-        app.buttons["STAR_BUTTON"].tap()
-        app.buttons["HEART_BUTTON"].tap()
-        app.buttons["BOOST_BUTTON"].tap()
-
-        
-       
     }
 
 }

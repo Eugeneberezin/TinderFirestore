@@ -109,10 +109,10 @@
 		0506657322DE09A3000CBD5F /* TinderFireStoreEB */ = {
 			isa = PBXGroup;
 			children = (
-				0555A6A622E3B7A50091E712 /* ViewModels */,
 				0555A6A522E3B6E60091E712 /* Controllers */,
 				0555A6A222E2DC760091E712 /* Model */,
 				057B354522DFF66700DFB567 /* Views */,
+				0555A6A622E3B7A50091E712 /* ViewModels */,
 				057B353F22DEABEB00DFB567 /* Extensions */,
 				0506657422DE09A3000CBD5F /* AppDelegate.swift */,
 				0506657822DE09A3000CBD5F /* Main.storyboard */,

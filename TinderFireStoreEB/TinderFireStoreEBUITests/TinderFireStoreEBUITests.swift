@@ -28,6 +28,15 @@ class TinderFireStoreEBUITests: XCTestCase {
 
     func testExample() {
         
+       
+        XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 3).tap()
+        
+       
+        XCUIApplication().otherElements["SDET vs DEV"].tap()
+        XCUIApplication().otherElements["lady4c"].tap()
+        XCUIApplication().otherElements["42490FE4-66B9-488A-9F46-83B5DB38F4AE"].tap()
+        
+        
     }
 
 }

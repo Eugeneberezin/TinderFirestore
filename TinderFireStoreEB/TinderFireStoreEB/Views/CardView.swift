@@ -10,8 +10,21 @@ import UIKit
 
 class CardView: UIView {
     
-     let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c"))
-     let informationLabel = UILabel()
+    var cardViewModel: CardViewModel! {
+        didSet {
+            imageView.image = UIImage(named: cardViewModel.imageName)
+            informationLabel.attributedText = cardViewModel.attributedString
+            informationLabel.textAlignment = cardViewModel.textAlighment
+            
+            //Accessibility identifiers
+            
+            informationLabel.accessibilityIdentifier = informationLabel.text
+            accessibilityIdentifier = cardViewModel.imageName
+        }
+    }
+    
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c"))
+    fileprivate let informationLabel = UILabel()
     
     // Configurations
     fileprivate let threshold: CGFloat = 80
@@ -21,8 +34,8 @@ class CardView: UIView {
         // custom drawing code
         layer.cornerRadius = 10
         clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .darkGray
         
         addSubview(imageView)
         imageView.fillSuperview()

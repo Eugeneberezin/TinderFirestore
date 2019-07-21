@@ -15,10 +15,17 @@ class HomeController: UIViewController {
     let buttonsStackView = HomeBottomControlsStackView()
     let cardsDeckView = UIView()
     
-    let cardViewModels = [User(name: "Kelly", age: 23, profession: "Music DJ", imageName: "lady5c" ).toCardViewModel(),
-    User(name: "Eugene", age: 33, profession: "iOS Dev", imageName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE" ).toCardViewModel(),
-    User(name: "Jill", age: 18, profession: "Teacher", imageName: "lady4c" ).toCardViewModel()
-    ]
+    let cardViewModels: [CardViewModel] = {
+        let producers = [
+                         User(name: "Kelly", age: 23, profession: "Music DJ", imageName: "lady5c" ),
+                         User(name: "Eugene", age: 33, profession: "iOS Dev", imageName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE" ),
+                         User(name: "Jill", age: 18, profession: "Teacher", imageName: "lady4c" ),
+                         Advertiser(title: "New Video Every Week", brandName: "Eugene Berezin", postPhotoName: "SDET vs DEV")
+        ] as [ProducesCardViewModel]
+        
+        let viewModels = producers.map({return $0.toCardViewModel()})
+        return viewModels
+    }()
     
     
     override func viewDidLoad() {
@@ -33,11 +40,9 @@ class HomeController: UIViewController {
         
         cardViewModels.forEach { (cardVM) in
             let cardView                             = CardView(frame: .zero)
-            cardView.imageView.image                 = UIImage(named: cardVM.imageName)
-            cardView.informationLabel.attributedText = cardVM.attributedString
-            cardView.informationLabel.textAlignment  = cardVM.textAlighment
-            
+            cardView.cardViewModel = cardVM
             cardsDeckView.addSubview(cardView)
+            //cardView.accessibilityIdentifier = "\(cardVM.imageName)"
             cardView.fillSuperview()
         }
 

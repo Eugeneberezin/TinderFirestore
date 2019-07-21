@@ -16,6 +16,7 @@
 		0506659522DE09A5000CBD5F /* TinderFireStoreEBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */; };
 		0555A6A422E2DCB80091E712 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A322E2DCB80091E712 /* User.swift */; };
 		0555A6A822E3B8600091E712 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A722E3B8600091E712 /* CardViewModel.swift */; };
+		0555A6E722E4F0170091E712 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6E622E4F0170091E712 /* Advertiser.swift */; };
 		057B354422DED1D700DFB567 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354322DED1D700DFB567 /* Extensions+UIView.swift */; };
 		057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */; };
 		057B354922E0010B00DFB567 /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354822E0010B00DFB567 /* TopNavigationStackView.swift */; };
@@ -55,6 +56,7 @@
 		0506659622DE09A5000CBD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0555A6A322E2DCB80091E712 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0555A6A722E3B8600091E712 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		0555A6E622E4F0170091E712 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		057B354322DED1D700DFB567 /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Extensions+UIView.swift"; path = "../../../../../iOS course/SwipeMatchFirestoreLBTA/SwipeMatchFirestoreLBTA/Extensions/Extensions+UIView.swift"; sourceTree = "<group>"; };
 		057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlsStackView.swift; sourceTree = "<group>"; };
 		057B354822E0010B00DFB567 /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				0555A6A322E2DCB80091E712 /* User.swift */,
+				0555A6E622E4F0170091E712 /* Advertiser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			files = (
 				0506657722DE09A3000CBD5F /* HomeController.swift in Sources */,
 				057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */,
+				0555A6E722E4F0170091E712 /* Advertiser.swift in Sources */,
 				0506657522DE09A3000CBD5F /* AppDelegate.swift in Sources */,
 				057B354422DED1D700DFB567 /* Extensions+UIView.swift in Sources */,
 				0555A6A822E3B8600091E712 /* CardViewModel.swift in Sources */,

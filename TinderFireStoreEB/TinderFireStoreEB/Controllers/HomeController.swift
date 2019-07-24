@@ -12,57 +12,49 @@ class HomeController: UIViewController {
     
     //hader
     let topStackView = TopNavigationStackView()
-    let buttonsStackView = HomeBottomControlsStackView()
     let cardsDeckView = UIView()
+    let buttonsStackView = HomeBottomControlsStackView()
     
     let cardViewModels: [CardViewModel] = {
         let producers = [
-                         User(name: "Kelly", age: 23, profession: "Music DJ", imageName: "lady5c" ),
-                         User(name: "Eugene", age: 33, profession: "iOS Dev", imageName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE" ),
-                         User(name: "Jill", age: 18, profession: "Teacher", imageName: "lady4c" ),
-                         Advertiser(title: "New Video Every Week", brandName: "Eugene Berezin", postPhotoName: "SDET vs DEV")
-        ] as [ProducesCardViewModel]
+            User(name: "Kelly", age: 23, profession: "Music DJ", imageNames: ["kelly1", "kelly2", "kelly3"]),
+            Advertiser(title: "New Video Everyday", brandName: "Eugene Berezin", posterPhotoName: "SDET vs DEV"),
+            User(name: "Eugene", age: 33, profession: "iOS Dev", imageNames: ["42490FE4-66B9-488A-9F46-83B5DB38F4AE", "Screen Shot 2019-07-01 at 6.38.49 PM", "Screen Shot 2019-07-17 at 7.19.22 PM"]),
+            User(name: "Jill", age: 18, profession: "Teacher", imageNames: ["jane1", "jane2", "jane3"]),
+            ] as [ProducesCardViewModel]
         
         let viewModels = producers.map({return $0.toCardViewModel()})
         return viewModels
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        buttonsStackView.distribution = .fillEqually
-        setUpLayout()
-        setUpDummyCards()
+        setupLayout()
+        setupDummyCards()
     }
     
-    fileprivate func setUpDummyCards() {
-        
+    fileprivate func setupDummyCards() {
         cardViewModels.forEach { (cardVM) in
-            let cardView                             = CardView(frame: .zero)
+            let cardView = CardView(frame: .zero)
             cardView.cardViewModel = cardVM
             cardsDeckView.addSubview(cardView)
-            //cardView.accessibilityIdentifier = "\(cardVM.imageName)"
             cardView.fillSuperview()
         }
-
     }
     
-    // MARK:- Filterprivate
+    // MARK:- Fileprivate
     
-    fileprivate func setUpLayout() {
-        let overallStackView                         = UIStackView(arrangedSubviews: [topStackView, cardsDeckView, buttonsStackView])
-        overallStackView.axis                        = .vertical
-        
+    fileprivate func setupLayout() {
+        let overallStackView = UIStackView(arrangedSubviews: [topStackView, cardsDeckView, buttonsStackView])
+        overallStackView.axis = .vertical
         view.addSubview(overallStackView)
-        
         overallStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
-        
         overallStackView.isLayoutMarginsRelativeArrangement = true
-        overallStackView.layoutMargins = .init(top: 0, left: 8, bottom: 0, right: 8)
+        overallStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
         
+        overallStackView.bringSubviewToFront(cardsDeckView)
     }
-
-
+    
 }
+
 

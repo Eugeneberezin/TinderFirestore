@@ -16,8 +16,8 @@ protocol ProducesCardViewModel {
 
 struct CardViewModel {
     
-    let imageName: String
-    let attributedString : NSAttributedString
-    let textAlighment: NSTextAlignment
-    
+    // we'll define the properties that are view will display/render out
+    let imageNames: [String]
+    let attributedString: NSAttributedString
+    let textAlignment: NSTextAlignment
 }

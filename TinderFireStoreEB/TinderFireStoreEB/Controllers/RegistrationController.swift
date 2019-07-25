@@ -38,7 +38,7 @@ class RegistrationController: UIViewController {
     
     @objc func handleRegisterButton() {
         let homeController = HomeController()
-        present(homeController, animated: false)
+        present(homeController, animated: true)
     }
     
     let fullNameTextField: CustomTextField = {

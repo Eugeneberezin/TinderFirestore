@@ -73,24 +73,69 @@ class RegistrationController: UIViewController {
         super.viewDidLoad()
         
         setupGradientLayer()
-        view.backgroundColor = .red
+        setupLayout()
+        setupNotificationObservers()
+        setupTapGesture()
         
-        let stackView = UIStackView(arrangedSubviews: [
-            selectPhotoButton,
-            fullNameTextField,
-            emailTextField,
-            passwordTextField,
-            registerButton
-            ])
+    }
+    
+    
+    //MARK: - Private
+    
+    fileprivate func setupTapGesture() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss)))
+    }
+    
+    @objc fileprivate func handleTapDismiss() {
+        self.view.endEditing(true) // dismisses keyboard
+    }
+    
+    fileprivate func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self) // you'll have a retain cycle
+    }
+    
+    @objc fileprivate func handleKeyboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity
+        })
+    }
+    
+    @objc fileprivate func handleKeyboardShow(notification: Notification) {
+        // how to figure out how tall the keyboard actually is
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardFrame = value.cgRectValue
+        print(keyboardFrame)
         
+        // let's try to figure out how tall the gap is from the register button to the bottom of the screen
+        let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height
+        print(bottomSpace)
+        
+        let difference = keyboardFrame.height - bottomSpace
+        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 8)
+    }
+    
+    lazy var stackView = UIStackView(arrangedSubviews: [
+        selectPhotoButton,
+        fullNameTextField,
+        emailTextField,
+        passwordTextField,
+        registerButton
+        ])
+    
+    fileprivate func setupLayout() {
         view.addSubview(stackView)
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
-        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive =  true
-
-        
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+    
     
     fileprivate func setupGradientLayer() {
         
@@ -103,6 +148,8 @@ class RegistrationController: UIViewController {
         view.layer.addSublayer(gradientLayer)
         gradientLayer.frame = view.bounds
     }
+    
+    
     
 
 }

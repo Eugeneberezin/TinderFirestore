@@ -27,7 +27,6 @@ class RegistrationController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Register", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-        //button.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         button.backgroundColor = .lightGray
         button.setTitleColor(.gray, for: .disabled)
         button.isEnabled = false

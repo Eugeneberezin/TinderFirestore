@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import UIKit
+import Foundation
 
 class TinderFireStoreEBUITests: XCTestCase {
 
@@ -23,12 +25,23 @@ class TinderFireStoreEBUITests: XCTestCase {
     }
 
     override func tearDown() {
+        super.tearDown()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testExample() {
+        let fullNameTextFiled = XCUIApplication().textFields["Enter full name"]
+        let emailTextField = XCUIApplication().textFields["Enter email"]
         
-    
+        fullNameTextFiled.tap()
+        fullNameTextFiled.typeText("Data")
+        let dataForEmailField = fullNameTextFiled.value as? String ?? ""
+        emailTextField.tap()
+        emailTextField.typeText(dataForEmailField)
+        
+       XCTAssertEqual(fullNameTextFiled.value as? String, "Data")
+        
+        
     }
 
 }

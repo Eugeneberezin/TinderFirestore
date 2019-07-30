@@ -14,6 +14,7 @@
 		0506657F22DE09A5000CBD5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0506657D22DE09A5000CBD5F /* LaunchScreen.storyboard */; };
 		0506658A22DE09A5000CBD5F /* TinderFireStoreEBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506658922DE09A5000CBD5F /* TinderFireStoreEBTests.swift */; };
 		0506659522DE09A5000CBD5F /* TinderFireStoreEBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */; };
+		052A4AE822EFE27400F1DCA2 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4AE722EFE27400F1DCA2 /* Bindable.swift */; };
 		0555A6A422E2DCB80091E712 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A322E2DCB80091E712 /* User.swift */; };
 		0555A6A822E3B8600091E712 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A722E3B8600091E712 /* CardViewModel.swift */; };
 		0555A6E722E4F0170091E712 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6E622E4F0170091E712 /* Advertiser.swift */; };
@@ -60,6 +61,7 @@
 		0506659022DE09A5000CBD5F /* TinderFireStoreEBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderFireStoreEBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0506659422DE09A5000CBD5F /* TinderFireStoreEBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinderFireStoreEBUITests.swift; sourceTree = "<group>"; };
 		0506659622DE09A5000CBD5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		052A4AE722EFE27400F1DCA2 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		0555A6A322E2DCB80091E712 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0555A6A722E3B8600091E712 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0555A6E622E4F0170091E712 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				0506657622DE09A3000CBD5F /* HomeController.swift */,
 				0555A6EC22E937C30091E712 /* RegistrationController.swift */,
+				052A4AE722EFE27400F1DCA2 /* Bindable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				052A4AE822EFE27400F1DCA2 /* Bindable.swift in Sources */,
 				0506657722DE09A3000CBD5F /* HomeController.swift in Sources */,
 				0555A6F122ED0F0D0091E712 /* RegistrationViewModal.swift in Sources */,
 				057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */,

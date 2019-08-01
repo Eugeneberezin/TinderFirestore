@@ -30,16 +30,14 @@ class TinderFireStoreEBUITests: XCTestCase {
     }
 
     func testExample() {
-        let fullNameTextFiled = XCUIApplication().textFields["Enter full name"]
-        let emailTextField = XCUIApplication().textFields["Enter email"]
         
-        fullNameTextFiled.tap()
-        fullNameTextFiled.typeText("Data")
-        let dataForEmailField = fullNameTextFiled.value as? String ?? ""
-        emailTextField.tap()
-        emailTextField.typeText(dataForEmailField)
         
-       XCTAssertEqual(fullNameTextFiled.value as? String, "Data")
+        XCUIApplication().buttons["Select Photo"].tap()
+        XCUIApplication().tables.cells["Moments"].buttons["More Info"].tap()
+        XCUIApplication().swipeDown()
+        sleep(3)
+        XCUIApplication().collectionViews["PhotosGridView"].cells.element(boundBy: 1).tap()
+                                
         
         
     }

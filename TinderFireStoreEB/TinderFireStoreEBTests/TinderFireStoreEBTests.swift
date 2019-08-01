@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import TinderFireStoreEB
+//@testable import TinderFireStoreEB
 
 class TinderFireStoreEBTests: XCTestCase {
 

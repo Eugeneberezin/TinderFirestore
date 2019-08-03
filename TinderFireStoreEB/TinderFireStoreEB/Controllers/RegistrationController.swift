@@ -62,9 +62,7 @@ class RegistrationController: UIViewController {
     
     @objc fileprivate func handleRegister() {
         self.handleTapDismiss()
-        let homeController = HomeController()
-        
-        
+        //let homeController = HomeController()
         
         registrationViewModel.performRegistration {[unowned self] (err) in
             if let err = err {

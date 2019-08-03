@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CardView: UIView {
     
     var cardViewModel: CardViewModel! {
         didSet {
-            // accessing index 0 will crash if imageNames.count == 0
             let imageName = cardViewModel.imageNames.first ?? ""
-            imageView.image = UIImage(named: imageName)
+            // load our image using some kind of url instead
+            if let url = URL(string: imageName) {
+                imageView.sd_setImage(with: url)
+            }
+            
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
@@ -24,26 +28,25 @@ class CardView: UIView {
                 barsStackView.addArrangedSubview(barView)
             }
             barsStackView.arrangedSubviews.first?.backgroundColor = .white
+            
             setupImageIndexObserver()
         }
     }
     
     fileprivate func setupImageIndexObserver() {
         cardViewModel.imageIndexObserver = { [weak self] (idx, image) in
+            print("Changing photo from view model")
             self?.imageView.image = image
             
-            //setup for changing bar color for the imageView
             self?.barsStackView.arrangedSubviews.forEach({ (v) in
                 v.backgroundColor = self?.barDeselectedColor
             })
-            
             self?.barsStackView.arrangedSubviews[idx].backgroundColor = .white
-            print("Change index observer")
         }
     }
     
     // encapsulation
-    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c"))
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE"))
     fileprivate let gradientLayer = CAGradientLayer()
     fileprivate let informationLabel = UILabel()
     
@@ -59,7 +62,6 @@ class CardView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
     
-    var imageIndex = 0
     fileprivate let barDeselectedColor = UIColor(white: 0, alpha: 0.1)
     
     @objc fileprivate func handleTap(gesture: UITapGestureRecognizer) {
@@ -71,19 +73,6 @@ class CardView: UIView {
         } else {
             cardViewModel.goToPreviousPhoto()
         }
-        
-//        if shouldAdvanceNextPhoto {
-//            imageIndex = min(imageIndex + 1, cardViewModel.imageNames.count - 1)
-//        } else {
-//            imageIndex = max(0, imageIndex - 1)
-//        }
-//
-//        let imageName = cardViewModel.imageNames[imageIndex]
-//        imageView.image = UIImage(named: imageName)
-//        barsStackView.arrangedSubviews.forEach { (v) in
-//            v.backgroundColor = barDeselectedColor
-//        }
-//        barsStackView.arrangedSubviews[imageIndex].backgroundColor = .white
     }
     
     fileprivate func setupLayout() {
@@ -91,8 +80,7 @@ class CardView: UIView {
         layer.cornerRadius = 10
         clipsToBounds = true
         
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .darkGray
+        imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         imageView.fillSuperview()
         
@@ -183,4 +171,3 @@ class CardView: UIView {
     }
     
 }
-

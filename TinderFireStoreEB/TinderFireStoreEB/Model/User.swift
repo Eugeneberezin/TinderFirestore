@@ -32,11 +32,11 @@ struct User: ProducesCardViewModel {
     func toCardViewModel() -> CardViewModel {
         let attributedText = NSMutableAttributedString(string: name ?? "", attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy)])
         
-        let ageString = age != nil ? "\(age!)" : "N\\A"
+        let ageString = age != nil ? "\(age!)" : ""
         
         attributedText.append(NSAttributedString(string: "  \(ageString)", attributes: [.font: UIFont.systemFont(ofSize: 24, weight: .regular)]))
         
-        let professionString = profession != nil ? profession! : "Not available"
+        let professionString = profession != nil ? profession! : ""
         attributedText.append(NSAttributedString(string: "\n\(professionString)", attributes: [.font: UIFont.systemFont(ofSize: 20, weight: .regular)]))
         
         return CardViewModel(imageNames: [imageUrl1 ?? ""], attributedString: attributedText, textAlignment: .left)

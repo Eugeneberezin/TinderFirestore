@@ -31,10 +31,13 @@ class TinderFireStoreEBUITests: XCTestCase {
 
     func testExample() {
         
-
-       
+       let settingsButton = XCUIApplication().buttons["SETTINGS_BUTTON"]
        let selectPhotoButton = XCUIApplication().buttons["Select Photo"]
+        
+        settingsButton.tap()
         selectPhotoButton.tap()
+        
+        
         XCUIApplication().tables.cells["Moments"].buttons["More Info"].tap()
         XCUIApplication().swipeDown()
         sleep(3)

@@ -8,19 +8,23 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 class HomeController: UIViewController {
     
     //hader
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
-    let buttonsStackView = HomeBottomControlsStackView()
+    let bottomControls = HomeBottomControlsStackView()
     
     
     var cardViewModels = [CardViewModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        
+        bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
+        
         setupLayout()
         setupFirestoreUserCards()
         fetchUsersFromFirestore()
@@ -28,15 +32,29 @@ class HomeController: UIViewController {
     
     @objc func handleSettings() {
         print("Show registartion page")
-        let registrationController = RegistrationController()
-        present(registrationController, animated: true)
+        let settingsController = SettingsController()
+        let navController = UINavigationController(rootViewController: settingsController)
+        present(navController, animated: true)
         
     }
     
+    var lastFetchedUser: User?
+    
+   @objc fileprivate func handleRefresh() {
+        fetchUsersFromFirestore()
+    }
+    
     fileprivate func fetchUsersFromFirestore() {
-        
-        let query = Firestore.firestore().collection("users")           //Firestore.firestore().collection("users")
+        // setup HUD
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Getting more awesome people like you!"
+        hud.show(in: view)
+
+
+        //pagination
+        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
         query.getDocuments { (snapshot, err) in
+            hud.dismiss()
             if let err = err {
                 print("Failed to fetch users:", err)
                 return
@@ -46,8 +64,11 @@ class HomeController: UIViewController {
                 let userDictionary = documentSnapshot.data()
                 let user = User(dictionary: userDictionary)
                 self.cardViewModels.append(user.toCardViewModel())
+                self.lastFetchedUser = user
+                self.setupCardFromUser(user: user)
+                
             })
-            self.setupFirestoreUserCards()
+            
         }
         
     }
@@ -62,11 +83,19 @@ class HomeController: UIViewController {
         }
     }
     
+    fileprivate func setupCardFromUser(user: User) {
+        let cardView = CardView(frame: .zero)
+        cardView.cardViewModel = user.toCardViewModel()
+        cardsDeckView.addSubview(cardView)
+        cardsDeckView.sendSubviewToBack(cardView)
+        cardView.fillSuperview()
+    }
+    
     // MARK:- Fileprivate
     
     fileprivate func setupLayout() {
         view.backgroundColor = .white
-        let overallStackView = UIStackView(arrangedSubviews: [topStackView, cardsDeckView, buttonsStackView])
+        let overallStackView = UIStackView(arrangedSubviews: [topStackView, cardsDeckView, bottomControls])
         overallStackView.axis = .vertical
         view.addSubview(overallStackView)
         overallStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)

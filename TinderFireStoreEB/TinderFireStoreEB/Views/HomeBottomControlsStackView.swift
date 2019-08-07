@@ -9,30 +9,38 @@
 import UIKit
 
 class HomeBottomControlsStackView: UIStackView {
+    
+    static func createButton(image: UIImage) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }
+    
+    let refreshButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"))
+    let dislikeButton = createButton(image: #imageLiteral(resourceName: "dismiss_circle"))
+    let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"))
+    let favoriteButton = createButton(image: #imageLiteral(resourceName: "like_circle"))
+    let boostButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"))
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         distribution = .fillEqually
         heightAnchor.constraint(equalToConstant: 120).isActive = true
         
-        let subViews = [#imageLiteral(resourceName: "refresh_circle"), #imageLiteral(resourceName: "dismiss_circle"), #imageLiteral(resourceName: "super_like_circle"), #imageLiteral(resourceName: "like_circle"), #imageLiteral(resourceName: "boost_circle")].map { (img) -> UIView in
-            let button = UIButton(type: .system)
-            button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
-            button.isAccessibilityElement = true
-            return button
+        [refreshButton, dislikeButton, starButton, favoriteButton, boostButton].forEach { (button) in
+            self.addArrangedSubview(button)
         }
         
-        subViews[0].accessibilityIdentifier = "REFRESH_BUTTON"
-        subViews[1].accessibilityIdentifier = "X_BUTTON"
-        subViews[2].accessibilityIdentifier = "STAR_BUTTON"
-        subViews[3].accessibilityIdentifier = "HEART_BUTTON"
-        subViews[4].accessibilityIdentifier = "BOOST_BUTTON"
+        refreshButton.accessibilityIdentifier = "REFRESH_BUTTON"
+        dislikeButton.accessibilityIdentifier = "DISLIKE_BUTTON"
+        starButton.accessibilityIdentifier = "STAR_BUTTON"
+        favoriteButton.accessibilityIdentifier = "HEART_BUTTON"
+        boostButton.accessibilityIdentifier = "BOOST_BUTTON"
         
         
         
-        subViews.forEach { (v) in
-            addArrangedSubview(v)
-        }
+        
     }
     
     required init(coder: NSCoder) {

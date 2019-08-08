@@ -37,28 +37,81 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         setupNavigationItems()
         tableView.backgroundColor = #colorLiteral(red: 0.8894340479, green: 0.8894340479, blue: 0.8894340479, alpha: 1)
         tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .interactive
         
     }
     
     
-    
-    
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    lazy var header: UIView = {
         let header = UIView()
         header.addSubview(image1Button)
         let padding: CGFloat = 16
         setupSelectPhotoLargeButton(header, padding)
         setUpStackViewOfRightHandButtons(padding, header)
         return header
+    }()
+    
+    class HeaderLable: UILabel {
+        override func drawText(in rect: CGRect) {
+            super.drawText(in: rect.insetBy(dx: 16, dy: 0))
+        }
+    }
+        
+        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return header
+        }
+        let headerLabel = HeaderLable()
+        
+        switch section {
+        case 1:
+            headerLabel.text = "Name"
+        case 2:
+            headerLabel.text = "Profession"
+        case 3:
+            headerLabel.text = "Age"
+        default:
+            headerLabel.text = "Bio"
+        }
+        
+        headerLabel.isAccessibilityElement = true
+        
+        return headerLabel
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-         return 300
+        if section == 0 {
+            return 300
+        }
+         return 40
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 5
     }
     
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 0 : 1
+    }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = SettingsCell(style: .default, reuseIdentifier: nil)
+        
+        switch indexPath.section {
+        case 1:
+            cell.textField.placeholder = "Name"
+        case 2:
+            cell.textField.placeholder = "Profession"
+        case 3:
+            cell.textField.placeholder = "Age"
+        default:
+            cell.textField.placeholder = "Bio"
+        }
+        
+        return cell
+    }
     
     
     fileprivate func setUpStackViewOfRightHandButtons(_ padding: CGFloat, _ header: UIView) {

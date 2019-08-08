@@ -35,7 +35,7 @@ class TinderFireStoreEBUITests: XCTestCase {
        let selectPhotoButton = XCUIApplication().buttons["Select Photo"]
         
         settingsButton.tap()
-        selectPhotoButton.tap()
+                selectPhotoButton.otherElements.element(boundBy: 0)
         
         
         XCUIApplication().tables.cells["Moments"].buttons["More Info"].tap()

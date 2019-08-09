@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
+import SDWebImage
 
 class CustomImagePickerController: UIImagePickerController {
     var imageButton: UIButton?
@@ -38,6 +41,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         tableView.backgroundColor = #colorLiteral(red: 0.8894340479, green: 0.8894340479, blue: 0.8894340479, alpha: 1)
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .interactive
+        fetchCurrentUser()
         
     }
     
@@ -102,17 +106,61 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         switch indexPath.section {
         case 1:
             cell.textField.placeholder = "Name"
+            cell.textField.text = user?.name
+            cell.textField.addTarget(self, action: #selector(handleNameChange), for: .editingChanged)
         case 2:
             cell.textField.placeholder = "Profession"
+            cell.textField.text = user?.profession
+            cell.textField.addTarget(self, action: #selector(handleProfessionChange), for: .editingChanged)
         case 3:
             cell.textField.placeholder = "Age"
+            if let age = user?.age {
+              cell.textField.text = String(age)
+            }
+            cell.textField.addTarget(self, action: #selector(handleAgeChange), for: .editingChanged)
+            
         default:
             cell.textField.placeholder = "Bio"
-        }
+            
+        } 
         
         return cell
     }
     
+    var user: User?
+    
+    fileprivate func fetchCurrentUser() {
+        //fatch current logged in user
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, err) in
+            if let err = err {
+                print(err)
+            }
+            
+            //fetched user
+            
+            guard let userDictionary = snapshot?.data() else {return}
+            self.user = User(dictionary: userDictionary)
+            self.loadUserPhotos()
+
+
+            self.tableView.reloadData()
+            
+            
+            
+        }
+        
+    }
+    
+    
+    fileprivate func loadUserPhotos() {
+        guard let imageUrl = user?.imageUrl1, let url = URL(string: imageUrl) else { return }
+        // why exactly do we use this SDWebImageManager class to load our images?
+        SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, _, _, _, _) in
+            self.image1Button.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+    }
     
     fileprivate func setUpStackViewOfRightHandButtons(_ padding: CGFloat, _ header: UIView) {
         let stackView = UIStackView(arrangedSubviews: [image2Button, image3Button])
@@ -133,7 +181,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleCancel)),
+            UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave)),
             UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleCancel))
         ]
     }
@@ -154,6 +202,50 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         dismiss(animated: true, completion: nil)
     }
     
+    @objc fileprivate func handleSave() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        //setting user's data that I want to save in Firebase
+        let docData: [String: Any] = [
+            "uid": uid,
+            "fullName": user?.name ?? "",
+            "imageUrl1": user?.imageUrl1 ?? "",
+            "age": user?.age ?? "",
+            "profession": user?.profession ?? ""
+        ]
+        
+        //show HUD as user saving info
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving your profile"
+        hud.show(in: view, animated: true)
+        
+        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
+            hud.dismiss(animated: true)
+            if let err = err {
+                print(">>FAILED TO SAVE<<", err)
+                hud.textLabel.text = "Failed to save data"
+                hud.detailTextLabel.text = err.localizedDescription
+                hud.show(in: self.view)
+                hud.dismiss(afterDelay: 5, animated: true)
+                return
+            }
+            
+            print(">>FINISHED SAVIG USER INFO")
+        }
+        
+    }
+    
+    @objc fileprivate func handleNameChange(textField: UITextField) {
+        self.user?.name = textField.text
+    }
+    
+    @objc fileprivate func handleProfessionChange(textField: UITextField) {
+        self.user?.profession = textField.text
+    }
+    
+    @objc fileprivate func handleAgeChange(textField: UITextField) {
+        self.user?.age = Int(textField.text ?? "")
+    }
     
     @objc fileprivate func handleCancel() {
         dismiss(animated: true, completion: nil)

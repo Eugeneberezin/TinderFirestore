@@ -32,20 +32,58 @@ class TinderFireStoreEBUITests: XCTestCase {
     func testExample() {
         
        let settingsButton = XCUIApplication().buttons["SETTINGS_BUTTON"]
+       let image1button = XCUIApplication().tables.buttons["IMAGE1BUTTON"]
        let selectPhotoButton = XCUIApplication().buttons["Select Photo"]
+       let appSlider = XCUIApplication().sliders["MIN_SLIDER"]
         
-        settingsButton.tap()
-                selectPhotoButton.otherElements.element(boundBy: 0)
+       settingsButton.tap()
+        XCUIApplication().swipeUp()
+    
         
+        
+        //handle sliders
+        guard appSlider.waitForExistence(timeout: 5) else {
+            XCTFail()
+            return
+        }
+        
+        appSlider.adjust(toNormalizedSliderValue: 0.5)
+        
+        
+       // minSliderSlider.adjust(toNormalizedSliderPosition: 0.9)
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        //handle select photo
         
         XCUIApplication().tables.cells["Moments"].buttons["More Info"].tap()
         XCUIApplication().swipeDown()
         sleep(3)
         XCUIApplication().collectionViews["PhotosGridView"].cells.element(boundBy: 1).tap()
         
+        
+        
+        
     
         
         
     }
 
+}
+
+// extention to handle sliders
+extension XCUIElement {
+    
+    open func adjust(toNormalizedSliderValue normalizedSliderValue: CGFloat) {
+        let start = coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0))
+        let end = coordinate(withNormalizedOffset: CGVector(dx: normalizedSliderValue, dy: 0.0))
+        start.press(forDuration: 0.05, thenDragTo: end)
+    }
+    
 }

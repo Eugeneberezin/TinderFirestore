@@ -20,9 +20,9 @@ class CustomImagePickerController: UIImagePickerController {
 class SettingsController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // instance properties
-    lazy var image1Button = createButton(selector: #selector(handleSelectPhoto))
-    lazy var image2Button = createButton(selector: #selector(handleSelectPhoto))
-    lazy var image3Button = createButton(selector: #selector(handleSelectPhoto))
+    lazy var image1Button = createButton(selector: #selector(handleSelectPhoto), accessililityID: "IMAGE1BUTTON")
+    lazy var image2Button = createButton(selector: #selector(handleSelectPhoto), accessililityID: "IMAGE2BUTTON")
+    lazy var image3Button = createButton(selector: #selector(handleSelectPhoto), accessililityID: "IMAGE3BUTTON")
     
     @objc func handleSelectPhoto(button: UIButton) {
         print("Select photo with button:", button)
@@ -78,7 +78,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         }
     }
     
-    func createButton(selector: Selector) -> UIButton {
+    func createButton(selector: Selector, accessililityID: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle("Select Photo", for: .normal)
         button.backgroundColor = .white
@@ -86,6 +86,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         button.addTarget(self, action: selector, for: .touchUpInside)
         button.imageView?.contentMode = .scaleAspectFill
         button.clipsToBounds = true
+        button.accessibilityIdentifier = accessililityID
         return button
     }
     
@@ -217,6 +218,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         ageRangeCell.minLabel.text = "Min \(minValue)"
         ageRangeCell.maxLabel.text = "Max \(maxValue)"
         
+        
         user?.minSeekingAge = minValue
         user?.maxSeekingAge = maxValue
     }
@@ -229,6 +231,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             ageRangeCell.maxSlader.addTarget(self, action: #selector(handleMaxAgeChanged), for: .valueChanged)
             ageRangeCell.minLabel.text = "Min \(user?.minSeekingAge ?? -1)"
             ageRangeCell.maxLabel.text = "Max \(user?.maxSeekingAge ?? -1)"
+            ageRangeCell.maxSlader.accessibilityIdentifier = "MAX_SLIDER"
+            ageRangeCell.minSlader.accessibilityIdentifier = "MIN_SLIDER"
             return ageRangeCell
         }
 

@@ -49,7 +49,7 @@ class CardView: UIView {
     }
     
     // encapsulation
-    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE"))
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "C93D39E1-747C-432C-9D27-D4C1EC9932A7-29606-00000F8A17EEA1DF"))
     fileprivate let gradientLayer = CAGradientLayer()
     fileprivate let informationLabel = UILabel()
     

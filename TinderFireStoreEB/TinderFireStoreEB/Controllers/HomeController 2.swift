@@ -12,16 +12,14 @@ import JGProgressHUD
 
 class HomeController: UIViewController, SettingsControllerDelegate {
     
-    
-    
     //hader
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
     let bottomControls = HomeBottomControlsStackView()
-    fileprivate let hud = JGProgressHUD(style: .dark)
     
     
     var cardViewModels = [CardViewModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
@@ -30,12 +28,12 @@ class HomeController: UIViewController, SettingsControllerDelegate {
         
         setupLayout()
         fetchCurrentUser()
-        //setupFirestoreUserCards()
+//        setupFirestoreUserCards()
 //        fetchUsersFromFirestore()
     }
     
-    var user: User?
-    
+    fileprivate let hud = JGProgressHUD(style: .dark)
+    fileprivate var user: User?
     
     fileprivate func fetchCurrentUser() {
         hud.textLabel.text = "Loading"
@@ -52,17 +50,16 @@ class HomeController: UIViewController, SettingsControllerDelegate {
         }
     }
     
-    
     @objc func handleSettings() {
         print("Show registartion page")
         let settingsController = SettingsController()
-        settingsController.delegate = self
         let navController = UINavigationController(rootViewController: settingsController)
         present(navController, animated: true)
         
     }
     
-    func didSetSettings() {
+    func didSaveSettings() {
+        print("Notified of dismissal from SettingsController in HomeController")
         fetchCurrentUser()
     }
     
@@ -73,11 +70,16 @@ class HomeController: UIViewController, SettingsControllerDelegate {
     }
     
     fileprivate func fetchUsersFromFirestore() {
-        guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
-        // i will introduce pagination here to page through 2 users at a time
-        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
+        // setup HUD
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Getting more awesome people like you!"
+        hud.show(in: view)
+
+
+        //pagination
+        let query = Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2)
         query.getDocuments { (snapshot, err) in
-            self.hud.dismiss()
+            hud.dismiss()
             if let err = err {
                 print("Failed to fetch users:", err)
                 return
@@ -89,10 +91,12 @@ class HomeController: UIViewController, SettingsControllerDelegate {
                 self.cardViewModels.append(user.toCardViewModel())
                 self.lastFetchedUser = user
                 self.setupCardFromUser(user: user)
+                
             })
+            
         }
+        
     }
-    
     
     fileprivate func setupFirestoreUserCards() {
         cardViewModels.forEach { (cardVM) in

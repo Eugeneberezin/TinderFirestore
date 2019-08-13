@@ -11,50 +11,45 @@ import Firebase
 import JGProgressHUD
 
 class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate {
+    func didSetSettings() {
+        fetchCurrentUser()
+    }
     
     
-    
-    //hader
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
     let bottomControls = HomeBottomControlsStackView()
-    fileprivate let hud = JGProgressHUD(style: .dark)
     
-    
-    var cardViewModels = [CardViewModel]()
-    
+    var cardViewModels = [CardViewModel]() // empty array
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         
+        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         
         setupLayout()
         fetchCurrentUser()
-        //setupFirestoreUserCards()
-//        fetchUsersFromFirestore()
-    }
-    fileprivate let registrationController = RegistrationController()
-    override func viewDidAppear(_ animated: Bool) {
-        if Auth.auth().currentUser == nil {
-           
-            let loginController = LoginController()
-            loginController.delegate = self
-            let navController = UINavigationController(rootViewController: registrationController)
-            present(navController, animated: true)
-        }else {
-            fetchCurrentUser()
-        }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("HomeController did appear")
+        // you want to kick the user out when they log out
+        if Auth.auth().currentUser == nil {
+            let registrationController = RegistrationController()
+            registrationController.delegate = self
+            let navController = UINavigationController(rootViewController: registrationController)
+            present(navController, animated: true)
+        }
+    }
     
     func didFinishLoggingIn() {
         fetchCurrentUser()
     }
     
-    var user: User?
-    
+    fileprivate let hud = JGProgressHUD(style: .dark)
+    fileprivate var user: User?
     
     fileprivate func fetchCurrentUser() {
         hud.textLabel.text = "Loading"
@@ -69,29 +64,14 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             }
             self.user = user
             self.fetchUsersFromFirestore()
-            print(">>>>USER", self.user)
         }
     }
     
-    
-    @objc func handleSettings() {
-        print("Show registartion page")
-        let settingsController = SettingsController()
-        settingsController.delegate = self
-        let navController = UINavigationController(rootViewController: settingsController)
-        present(navController, animated: true)
-        
-    }
-    
-    func didSetSettings() {
-        fetchCurrentUser()
+    @objc fileprivate func handleRefresh() {
+        fetchUsersFromFirestore()
     }
     
     var lastFetchedUser: User?
-    
-   @objc fileprivate func handleRefresh() {
-        fetchUsersFromFirestore()
-    }
     
     fileprivate func fetchUsersFromFirestore() {
         guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
@@ -114,23 +94,24 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         }
     }
     
-    
-    fileprivate func setupFirestoreUserCards() {
-        cardViewModels.forEach { (cardVM) in
-            let cardView = CardView(frame: .zero)
-            cardView.cardViewModel = cardVM
-            cardsDeckView.addSubview(cardView)
-            cardsDeckView.sendSubviewToBack(cardView)
-            cardView.fillSuperview()
-        }
-    }
-    
     fileprivate func setupCardFromUser(user: User) {
         let cardView = CardView(frame: .zero)
         cardView.cardViewModel = user.toCardViewModel()
         cardsDeckView.addSubview(cardView)
         cardsDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+    }
+    
+    @objc func handleSettings() {
+        let settingsController = SettingsController()
+        settingsController.delegate = self
+        let navController = UINavigationController(rootViewController: settingsController)
+        present(navController, animated: true)
+    }
+    
+    func didSaveSettings() {
+        print("Notified of dismissal from SettingsController in HomeController")
+        fetchCurrentUser()
     }
     
     // MARK:- Fileprivate
@@ -147,8 +128,5 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         overallStackView.bringSubviewToFront(cardsDeckView)
     }
     
-    
-    
 }
-
 

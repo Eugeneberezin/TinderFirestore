@@ -21,7 +21,7 @@ class HomeBottomControlsStackView: UIStackView {
     let dislikeButton = createButton(image: #imageLiteral(resourceName: "dismiss_circle"))
     let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"))
     let favoriteButton = createButton(image: #imageLiteral(resourceName: "like_circle"))
-    let boostButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"))
+    let boostButton = createButton(image: #imageLiteral(resourceName: "boost_circle"))
 
     override init(frame: CGRect) {
         super.init(frame: frame)

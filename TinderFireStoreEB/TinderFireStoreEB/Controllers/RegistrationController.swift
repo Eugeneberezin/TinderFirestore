@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
+protocol RegistrationConrollerDelegate {
+    func didFinishRegister()
+}
+
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -28,6 +32,9 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
 }
 
 class RegistrationController: UIViewController {
+    
+    
+    var delegate: RegistrationConrollerDelegate?
     
     //UI Components
     let selectPhotoButton: UIButton = {
@@ -58,7 +65,23 @@ class RegistrationController: UIViewController {
         return button
     }()
     
+    let goToLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Login", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        return button
+        
+    }()
+    
     let registeringHUD = JGProgressHUD(style: .dark)
+    
+    
+    @objc fileprivate func handleLogin() {
+        let loginController = LoginController()
+        navigationController?.pushViewController(loginController, animated: true)
+    }
     
     @objc fileprivate func handleRegister() {
         self.handleTapDismiss()
@@ -94,7 +117,7 @@ class RegistrationController: UIViewController {
     }
     
     let fullNameTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 24)
+        let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter full name"
         tf.backgroundColor = .white
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
@@ -103,7 +126,7 @@ class RegistrationController: UIViewController {
     }()
     
     let emailTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 24)
+        let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter email"
         tf.keyboardType = .emailAddress
         tf.backgroundColor = .white
@@ -116,7 +139,7 @@ class RegistrationController: UIViewController {
     
     
     let passwordTextField: CustomTextField = {
-        let tf = CustomTextField(padding: 24)
+        let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter password"
         tf.isSecureTextEntry = true
         tf.backgroundColor = .white
@@ -244,16 +267,28 @@ class RegistrationController: UIViewController {
         }
     }
     
-    fileprivate func setupLayout() {
+    fileprivate func setupOverallStackviewConstrains() {
+        overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
+        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupOverAllStackView() {
+        
         view.addSubview(overallStackView)
-        
-        
-        
         overallStackView.axis = .vertical
         selectPhotoButton.widthAnchor.constraint(equalToConstant: 275).isActive = true
         overallStackView.spacing = 8
-        overallStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
-        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        setupOverallStackviewConstrains()
+    }
+    
+    fileprivate func setupLayout() {
+        navigationController?.isNavigationBarHidden = true
+        setupOverAllStackView()
+        
+        view.addSubview(goToLoginButton)
+        goToLoginButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+        
+        
     }
     
     override func viewWillLayoutSubviews() {

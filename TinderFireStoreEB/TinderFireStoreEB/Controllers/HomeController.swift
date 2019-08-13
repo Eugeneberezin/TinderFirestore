@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController, SettingsControllerDelegate {
+class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate {
     
     
     
@@ -22,6 +22,8 @@ class HomeController: UIViewController, SettingsControllerDelegate {
     
     
     var cardViewModels = [CardViewModel]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
@@ -33,12 +35,30 @@ class HomeController: UIViewController, SettingsControllerDelegate {
         //setupFirestoreUserCards()
 //        fetchUsersFromFirestore()
     }
+    fileprivate let registrationController = RegistrationController()
+    override func viewDidAppear(_ animated: Bool) {
+        if Auth.auth().currentUser == nil {
+           
+            let loginController = LoginController()
+            loginController.delegate = self
+            let navController = UINavigationController(rootViewController: registrationController)
+            present(navController, animated: true)
+        }else {
+            fetchCurrentUser()
+        }
+    }
+    
+    
+    func didFinishLoggingIn() {
+        fetchCurrentUser()
+    }
     
     var user: User?
     
     
     fileprivate func fetchCurrentUser() {
         hud.textLabel.text = "Loading"
+        hud.dismiss(afterDelay: 5)
         hud.show(in: view)
         cardsDeckView.subviews.forEach({$0.removeFromSuperview()})
         Firestore.firestore().fetchCurrentUser { (user, err) in
@@ -49,6 +69,7 @@ class HomeController: UIViewController, SettingsControllerDelegate {
             }
             self.user = user
             self.fetchUsersFromFirestore()
+            print(">>>>USER", self.user)
         }
     }
     

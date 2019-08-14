@@ -10,18 +10,19 @@ import UIKit
 
 class HomeBottomControlsStackView: UIStackView {
     
-    static func createButton(image: UIImage) -> UIButton {
+    static func createButton(image: UIImage, accessibilityID: String) -> UIButton {
         let button = UIButton(type: .system)
         button.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.imageView?.contentMode = .scaleAspectFill
+        button.accessibilityIdentifier = accessibilityID
         return button
     }
     
-    let refreshButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"))
-    let dislikeButton = createButton(image: #imageLiteral(resourceName: "dismiss_circle"))
-    let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"))
-    let favoriteButton = createButton(image: #imageLiteral(resourceName: "like_circle"))
-    let boostButton = createButton(image: #imageLiteral(resourceName: "boost_circle"))
+    let refreshButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"), accessibilityID: "REFRESH_BUTTON")
+    let dislikeButton = createButton(image: #imageLiteral(resourceName: "dismiss_circle"), accessibilityID: "DISLIKE_BUTTON")
+    let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"), accessibilityID: "STAR_BUTTON")
+    let favoriteButton = createButton(image: #imageLiteral(resourceName: "like_circle"), accessibilityID: "FAVORITE_BUTTON")
+    let boostButton = createButton(image: #imageLiteral(resourceName: "boost_circle"), accessibilityID: "BOOST_BUTTON")
 
     override init(frame: CGRect) {
         super.init(frame: frame)

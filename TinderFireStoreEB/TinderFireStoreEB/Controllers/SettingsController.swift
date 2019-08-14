@@ -229,8 +229,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             let ageRangeCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
             ageRangeCell.minSlader.addTarget(self, action: #selector(handleMinAgeChanged), for: .valueChanged)
             ageRangeCell.maxSlader.addTarget(self, action: #selector(handleMaxAgeChanged), for: .valueChanged)
-            ageRangeCell.minLabel.text = "Min \(user?.minSeekingAge ?? -1)"
-            ageRangeCell.maxLabel.text = "Max \(user?.maxSeekingAge ?? -1)"
+            ageRangeCell.minLabel.text = "Min \(user?.minSeekingAge ?? 18)"
+            ageRangeCell.maxLabel.text = "Max \(user?.maxSeekingAge ?? 99)"
             ageRangeCell.maxSlader.accessibilityIdentifier = "MAX_SLIDER"
             ageRangeCell.minSlader.accessibilityIdentifier = "MIN_SLIDER"
             return ageRangeCell
@@ -294,8 +294,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             "imageUrl3": user?.imageUrl3 ?? "",
             "age": user?.age ?? -1,
             "profession": user?.profession ?? "",
-            "minSeekingAge": user?.minSeekingAge ?? -1,
-            "maxSeekingAge": user?.maxSeekingAge ?? -1
+            "minSeekingAge": user?.minSeekingAge ?? 18,
+            "maxSeekingAge": user?.maxSeekingAge ?? 99
         ]
         
         let hud = JGProgressHUD(style: .dark)

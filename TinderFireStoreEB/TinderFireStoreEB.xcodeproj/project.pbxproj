@@ -18,6 +18,7 @@
 		050D9822230623750055E1F1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9821230623750055E1F1 /* LoginController.swift */; };
 		050D9824230623AE0055E1F1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9823230623AE0055E1F1 /* LoginViewModel.swift */; };
 		050D98262306240E0055E1F1 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D98252306240E0055E1F1 /* Extensions+UIView.swift */; };
+		050D9828230627AB0055E1F1 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 050D9827230627AB0055E1F1 /* logo.png */; };
 		052A4AE822EFE27400F1DCA2 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4AE722EFE27400F1DCA2 /* Bindable.swift */; };
 		052A4B2722FA5D9E00F1DCA2 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */; };
 		052A4B2922FBA09D00F1DCA2 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */; };
@@ -27,7 +28,6 @@
 		0555A6A422E2DCB80091E712 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A322E2DCB80091E712 /* User.swift */; };
 		0555A6A822E3B8600091E712 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6A722E3B8600091E712 /* CardViewModel.swift */; };
 		0555A6E722E4F0170091E712 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6E622E4F0170091E712 /* Advertiser.swift */; };
-		0555A6EB22E6A67F0091E712 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0555A6EA22E6A67E0091E712 /* logo.png */; };
 		0555A6ED22E937C30091E712 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6EC22E937C30091E712 /* RegistrationController.swift */; };
 		0555A6EF22E9473E0091E712 /* CustomedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6EE22E9473E0091E712 /* CustomedTextField.swift */; };
 		0555A6F122ED0F0D0091E712 /* RegistrationViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6F022ED0F0D0091E712 /* RegistrationViewModal.swift */; };
@@ -72,6 +72,7 @@
 		050D9821230623750055E1F1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		050D9823230623AE0055E1F1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		050D98252306240E0055E1F1 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Extensions+UIView.swift"; path = "TinderFireStoreEB/Controllers/Login/Extensions+UIView.swift"; sourceTree = SOURCE_ROOT; };
+		050D9827230627AB0055E1F1 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../../../logo.png; sourceTree = "<group>"; };
 		052A4AE722EFE27400F1DCA2 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		0555A6A322E2DCB80091E712 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0555A6A722E3B8600091E712 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		0555A6E622E4F0170091E712 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
-		0555A6EA22E6A67E0091E712 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "../../../iOS course/SwipeMatchFirestoreLBTA/SwipeMatchFirestoreLBTA/Assets.xcassets/app_icon.imageset/logo.png"; sourceTree = "<group>"; };
 		0555A6EC22E937C30091E712 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		0555A6EE22E9473E0091E712 /* CustomedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedTextField.swift; sourceTree = "<group>"; };
 		0555A6F022ED0F0D0091E712 /* RegistrationViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModal.swift; sourceTree = "<group>"; };
@@ -126,7 +126,6 @@
 				0506658822DE09A5000CBD5F /* TinderFireStoreEBTests */,
 				0506659322DE09A5000CBD5F /* TinderFireStoreEBUITests */,
 				0506657222DE09A3000CBD5F /* Products */,
-				0555A6EA22E6A67E0091E712 /* logo.png */,
 				CA52E2CD16610812997B1137 /* Pods */,
 				31281C49D1968B89D5170D96 /* Frameworks */,
 			);
@@ -154,6 +153,7 @@
 				0506657822DE09A3000CBD5F /* Main.storyboard */,
 				0506657B22DE09A5000CBD5F /* Assets.xcassets */,
 				0506657D22DE09A5000CBD5F /* LaunchScreen.storyboard */,
+				050D9827230627AB0055E1F1 /* logo.png */,
 				0506658022DE09A5000CBD5F /* Info.plist */,
 				052A4B32230233A900F1DCA2 /* GoogleService-Info.plist */,
 			);
@@ -371,8 +371,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0555A6EB22E6A67F0091E712 /* logo.png in Resources */,
 				0506657F22DE09A5000CBD5F /* LaunchScreen.storyboard in Resources */,
+				050D9828230627AB0055E1F1 /* logo.png in Resources */,
 				052A4B33230233A900F1DCA2 /* GoogleService-Info.plist in Resources */,
 				0506657C22DE09A5000CBD5F /* Assets.xcassets in Resources */,
 				0506657A22DE09A3000CBD5F /* Main.storyboard in Resources */,

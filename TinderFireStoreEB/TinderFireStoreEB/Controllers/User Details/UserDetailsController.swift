@@ -23,6 +23,7 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
         let iv = UIImageView(image: #imageLiteral(resourceName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE"))
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
+        iv.accessibilityIdentifier = "USER_PHOTO"
         return iv
     }()
     
@@ -30,6 +31,7 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
         let label = UILabel()
         label.text = "Eugene 30\niOSDev\nPlaceholder bio"
         label.numberOfLines = 0
+        label.accessibilityIdentifier = "USER_INFO_TEXT"
         return label
     }()
     

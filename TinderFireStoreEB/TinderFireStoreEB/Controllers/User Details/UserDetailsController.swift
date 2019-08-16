@@ -54,9 +54,9 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
         return button
     }()
     
-    lazy var dislikeButton = self.createButton(image: #imageLiteral(resourceName: "dismiss_circle"), selector: #selector(handleDislike), accessibilityID: "Dislike button")
-    lazy var superLikeButton = self.createButton(image: #imageLiteral(resourceName: "super_like_circle"), selector: #selector(handleDislike), accessibilityID: "SUPERLIKE BUTTON")
-    lazy var likeButton = self.createButton(image: #imageLiteral(resourceName: "like_circle"), selector: #selector(handleDislike), accessibilityID: "LIKE BUTTON")
+    lazy var dislikeButton = self.createButton(image: #imageLiteral(resourceName: "dismiss_circle"), selector: #selector(handleDislike), accessibilityID: "Dislike")
+    lazy var superLikeButton = self.createButton(image: #imageLiteral(resourceName: "super_like_circle"), selector: #selector(handleDislike), accessibilityID: "SUPERLIKE")
+    lazy var likeButton = self.createButton(image: #imageLiteral(resourceName: "like_circle"), selector: #selector(handleDislike), accessibilityID: "LIKE")
     
     
     

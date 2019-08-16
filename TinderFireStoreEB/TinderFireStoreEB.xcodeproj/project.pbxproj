@@ -19,6 +19,7 @@
 		050D9824230623AE0055E1F1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9823230623AE0055E1F1 /* LoginViewModel.swift */; };
 		050D98262306240E0055E1F1 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D98252306240E0055E1F1 /* Extensions+UIView.swift */; };
 		050D982C230645F60055E1F1 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 050D982B230645F60055E1F1 /* app_icon.png */; };
+		050D982E230762790055E1F1 /* SwipingPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D982D230762790055E1F1 /* SwipingPhotosController.swift */; };
 		052A4AE822EFE27400F1DCA2 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4AE722EFE27400F1DCA2 /* Bindable.swift */; };
 		052A4B2722FA5D9E00F1DCA2 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */; };
 		052A4B2922FBA09D00F1DCA2 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */; };
@@ -73,6 +74,7 @@
 		050D9823230623AE0055E1F1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		050D98252306240E0055E1F1 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Extensions+UIView.swift"; path = "TinderFireStoreEB/Controllers/Login/Extensions+UIView.swift"; sourceTree = SOURCE_ROOT; };
 		050D982B230645F60055E1F1 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon.png; path = ../../images/app_icon.png; sourceTree = "<group>"; };
+		050D982D230762790055E1F1 /* SwipingPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPhotosController.swift; sourceTree = "<group>"; };
 		052A4AE722EFE27400F1DCA2 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				050D981F23039CF80055E1F1 /* UserDetailsController.swift */,
+				050D982D230762790055E1F1 /* SwipingPhotosController.swift */,
 			);
 			path = "User Details";
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				0555A6ED22E937C30091E712 /* RegistrationController.swift in Sources */,
 				0555A6A422E2DCB80091E712 /* User.swift in Sources */,
 				052A4B2922FBA09D00F1DCA2 /* SettingsCell.swift in Sources */,
+				050D982E230762790055E1F1 /* SwipingPhotosController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

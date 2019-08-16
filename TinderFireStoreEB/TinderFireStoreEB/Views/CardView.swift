@@ -90,6 +90,7 @@ class CardView: UIView {
         button.setImage(#imageLiteral(resourceName: "info_icon").withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleMoreInfo), for: .touchUpInside)
         button.accessibilityIdentifier = "MORE_INFO_BUTTON"
+        button.accessibilityLabel = "More info"
         return button
     }()
     

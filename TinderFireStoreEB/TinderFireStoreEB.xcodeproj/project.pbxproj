@@ -18,7 +18,7 @@
 		050D9822230623750055E1F1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9821230623750055E1F1 /* LoginController.swift */; };
 		050D9824230623AE0055E1F1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9823230623AE0055E1F1 /* LoginViewModel.swift */; };
 		050D98262306240E0055E1F1 /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D98252306240E0055E1F1 /* Extensions+UIView.swift */; };
-		050D982A23062A8C0055E1F1 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 050D982923062A8C0055E1F1 /* logo.png */; };
+		050D982C230645F60055E1F1 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 050D982B230645F60055E1F1 /* app_icon.png */; };
 		052A4AE822EFE27400F1DCA2 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4AE722EFE27400F1DCA2 /* Bindable.swift */; };
 		052A4B2722FA5D9E00F1DCA2 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */; };
 		052A4B2922FBA09D00F1DCA2 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */; };
@@ -72,7 +72,7 @@
 		050D9821230623750055E1F1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		050D9823230623AE0055E1F1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		050D98252306240E0055E1F1 /* Extensions+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Extensions+UIView.swift"; path = "TinderFireStoreEB/Controllers/Login/Extensions+UIView.swift"; sourceTree = SOURCE_ROOT; };
-		050D982923062A8C0055E1F1 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../images/logo.png; sourceTree = "<group>"; };
+		050D982B230645F60055E1F1 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon.png; path = ../../images/app_icon.png; sourceTree = "<group>"; };
 		052A4AE722EFE27400F1DCA2 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		052A4B2622FA5D9E00F1DCA2 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 				0506657B22DE09A5000CBD5F /* Assets.xcassets */,
 				0506657D22DE09A5000CBD5F /* LaunchScreen.storyboard */,
 				0506658022DE09A5000CBD5F /* Info.plist */,
-				050D982923062A8C0055E1F1 /* logo.png */,
+				050D982B230645F60055E1F1 /* app_icon.png */,
 				052A4B32230233A900F1DCA2 /* GoogleService-Info.plist */,
 			);
 			path = TinderFireStoreEB;
@@ -372,9 +372,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0506657F22DE09A5000CBD5F /* LaunchScreen.storyboard in Resources */,
-				050D982A23062A8C0055E1F1 /* logo.png in Resources */,
 				052A4B33230233A900F1DCA2 /* GoogleService-Info.plist in Resources */,
 				0506657C22DE09A5000CBD5F /* Assets.xcassets in Resources */,
+				050D982C230645F60055E1F1 /* app_icon.png in Resources */,
 				0506657A22DE09A3000CBD5F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

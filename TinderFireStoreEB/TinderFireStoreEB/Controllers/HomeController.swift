@@ -11,8 +11,10 @@ import Firebase
 import JGProgressHUD
 
 class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate,CardViewDelegate {
-    func didTapMoreInfo() {
+    func didTapMoreInfo(cardViewModel: CardViewModel) {
+        print("Home controller:", cardViewModel.attributedString)
         let userDetailsController = UserDetailsController()
+        userDetailsController.cardViewModel = cardViewModel
         present(userDetailsController, animated: true)
     }
     

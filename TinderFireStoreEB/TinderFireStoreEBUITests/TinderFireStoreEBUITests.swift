@@ -68,10 +68,25 @@ class TinderFireStoreEBUITests: XCTestCase {
         XCUIApplication().collectionViews["PhotosGridView"].cells.element(boundBy: 1).tap()
         
         
-        
-        
+    }
     
+    
+    
+    
+    
+    func testSlider() {
+        let settingsButton = XCUIApplication().buttons["SETTINGS_BUTTON"]
+        settingsButton.tap()
+        XCUIApplication().swipeUp()
         
+        let appSlider = XCUIApplication().sliders["MIN_SLIDER"]
+        //wait for sliders
+        guard appSlider.waitForExistence(timeout: 5) else {
+            XCTFail()
+            return
+        }
+        
+        appSlider.adjust(toNormalizedSliderValue: 0.8)
         
     }
 

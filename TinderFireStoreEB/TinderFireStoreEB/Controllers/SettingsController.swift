@@ -223,14 +223,22 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         user?.maxSeekingAge = maxValue
     }
     
+    static let defaultMinSeekingAge = 18
+    static let defauitMaxSeekingAge = 99
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 5 {
             let ageRangeCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
             ageRangeCell.minSlader.addTarget(self, action: #selector(handleMinAgeChanged), for: .valueChanged)
             ageRangeCell.maxSlader.addTarget(self, action: #selector(handleMaxAgeChanged), for: .valueChanged)
-            ageRangeCell.minLabel.text = "Min \(user?.minSeekingAge ?? 18)"
-            ageRangeCell.maxLabel.text = "Max \(user?.maxSeekingAge ?? 99)"
+            let minAge = user?.minSeekingAge ?? SettingsController.defaultMinSeekingAge
+            let maxAge = user?.maxSeekingAge ?? SettingsController.defauitMaxSeekingAge
+            
+            ageRangeCell.minLabel.text = "Min \(minAge)"
+            ageRangeCell.maxLabel.text = "Max \(maxAge)"
+            ageRangeCell.minSlader.value = Float(minAge)
+            ageRangeCell.maxSlader.value = Float(maxAge)
             ageRangeCell.maxSlader.accessibilityIdentifier = "MAX_SLIDER"
             ageRangeCell.minSlader.accessibilityIdentifier = "MIN_SLIDER"
             return ageRangeCell

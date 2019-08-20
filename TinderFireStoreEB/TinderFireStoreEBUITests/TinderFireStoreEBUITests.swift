@@ -79,7 +79,7 @@ class TinderFireStoreEBUITests: XCTestCase {
         settingsButton.tap()
         XCUIApplication().swipeUp()
         
-        let appSlider = XCUIApplication().sliders["MIN_SLIDER"]
+        let appSlider = XCUIApplication().sliders["your slider"]
         //wait for sliders
         guard appSlider.waitForExistence(timeout: 5) else {
             XCTFail()

@@ -8,37 +8,68 @@
 
 import UIKit
 
-class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSource {
+class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     var cardViewModel: CardViewModel! {
         didSet {
             print(cardViewModel.attributedString)
+            if controllers.first == nil {
+                controllers.append(PhotoController(imageUrl: ""))
+            }
             controllers = cardViewModel.imageUrls.map({ (imageUrl) -> UIViewController in
                 let photoController = PhotoController(imageUrl: imageUrl)
                 return photoController
             })
             
-            setViewControllers([controllers.first!], direction: .forward, animated: false)
+            guard let firstElement = controllers.first else {return}
+            
+            setViewControllers([firstElement] , direction: .forward, animated: false)
+            setupBarViews()
         }
     }
     
+    fileprivate let barStackView = UIStackView(arrangedSubviews: [])
+    fileprivate let deselectedColor = UIColor(white: 0, alpha: 0.1)
+    
     var controllers = [UIViewController]()
     
-//
-//    let controllers = [ PhotoController(image: #imageLiteral(resourceName: "like_circle")),
-//                        PhotoController(image: #imageLiteral(resourceName: "app_icon-1")),
-//                        PhotoController(image: #imageLiteral(resourceName: "dismiss_circle")),
-//                        PhotoController(image: #imageLiteral(resourceName: "profileIcon")),
-//                        PhotoController(image: #imageLiteral(resourceName: "top_left_profile"))
-//    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
+        delegate = self
         view.backgroundColor = .white
         
         
     }
+    
+    fileprivate func setupBarViews(){
+        cardViewModel.imageUrls.forEach { (_) in
+            let barView = UIView()
+            barView.backgroundColor = deselectedColor
+            barView.layer.cornerRadius = 2
+            barStackView.addArrangedSubview(barView)
+            
+        }
+        barStackView.arrangedSubviews.first?.backgroundColor = .white
+        barStackView.spacing = 4
+        barStackView.distribution = .fillEqually
+        view.addSubview(barStackView)
+        let padding = UIApplication.shared.statusBarFrame.height + 8
+        barStackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: padding, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 4))
+    }
+    
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        print("Page turned")
+        let currentPhotoController = viewControllers?.first
+        if let index = controllers.firstIndex(where: {$0 == currentPhotoController}) {
+            barStackView.arrangedSubviews.forEach({$0.backgroundColor = deselectedColor})
+            barStackView.arrangedSubviews[index].backgroundColor = .white
+        }
+    }
+    
+
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let index = self.controllers.firstIndex(where: {$0 == viewController}) ?? 0
@@ -62,7 +93,8 @@ class PhotoController: UIViewController {
     
     init(imageUrl: String) {
         if let url = URL(string: imageUrl) {
-            imageView.sd_setImage(with: url)
+            //imageView.sd_setImage(with: url)
+            imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder"), options: .continueInBackground)
         }
         
         super.init(nibName: nil, bundle: nil)

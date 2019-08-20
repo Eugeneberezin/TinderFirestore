@@ -22,7 +22,8 @@ class CardView: UIView {
             let imageName = cardViewModel.imageUrls.first ?? ""
             // load our image using some kind of url instead
             if let url = URL(string: imageName) {
-                imageView.sd_setImage(with: url)
+//                imageView.sd_setImage(with: url)
+                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder"), options: .continueInBackground)
             }
             
             informationLabel.attributedText = cardViewModel.attributedString
@@ -55,7 +56,7 @@ class CardView: UIView {
     }
     
     // encapsulation
-    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "C93D39E1-747C-432C-9D27-D4C1EC9932A7-29606-00000F8A17EEA1DF"))
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "photo_placeholder"))
     fileprivate let gradientLayer = CAGradientLayer()
     fileprivate let informationLabel = UILabel()
     

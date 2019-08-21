@@ -125,6 +125,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     
     fileprivate func loadUserPhotos() {
         if let imageUrl = user?.imageUrl1, let url = URL(string: imageUrl) {
+            
             SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, _, _, _, _) in
                 self.image1Button.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
             }
@@ -300,7 +301,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             "imageUrl1": user?.imageUrl1 ?? "",
             "imageUrl2": user?.imageUrl2 ?? "",
             "imageUrl3": user?.imageUrl3 ?? "",
-            "age": user?.age ?? -1,
+            "age": user?.age ?? 18,
             "profession": user?.profession ?? "",
             "minSeekingAge": user?.minSeekingAge ?? 18,
             "maxSeekingAge": user?.maxSeekingAge ?? 99

@@ -22,14 +22,7 @@ class CardView: UIView {
     
     var cardViewModel: CardViewModel! {
         didSet {
-//            let imageName = cardViewModel.imageUrls.first ?? ""
-            // load our image using some kind of url instead
-//            if let url = URL(string: imageName) {
-////                imageView.sd_setImage(with: url)
-//                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder"), options: .continueInBackground)
-//            }
             swipingPhotoController.cardViewModel = self.cardViewModel
-            
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
@@ -198,9 +191,8 @@ class CardView: UIView {
             self.transform = .identity
             if shouldDismissCard {
                 self.removeFromSuperview()
-                self.cardViewDelegate?.didRemoveCard(cardView: self)
             }
-            
+            //            self.frame = CGRect(x: 0, y: 0, width: self.superview!.frame.width, height: self.superview!.frame.height)
         }
     }
     

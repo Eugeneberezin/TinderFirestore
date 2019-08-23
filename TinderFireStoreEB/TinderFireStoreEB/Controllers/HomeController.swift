@@ -43,6 +43,7 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         bottomControls.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
+        bottomControls.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
         
         setupLayout()
         fetchCurrentUser()
@@ -85,7 +86,11 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     }
     
     @objc fileprivate func handleRefresh() {
-        fetchUsersFromFirestore()
+
+        if topCardView == nil {
+            fetchUsersFromFirestore()
+        }
+
     }
     
     var lastFetchedUser: User?
@@ -94,14 +99,13 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
         // i will introduce pagination here to page through 2 users at a time
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
+        topCardView = nil
         query.getDocuments { (snapshot, err) in
             self.hud.dismiss()
             if let err = err {
                 print("Failed to fetch users:", err)
                 return
             }
-            
-            //setup next card via linked list
             
             var previousCardView: CardView?
             
@@ -120,8 +124,7 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
                     }
                     
                 }
-                //                self.cardViewModels.append(user.toCardViewModel())
-                //                self.lastFetchedUser = user
+                
             })
         }
     }
@@ -129,20 +132,38 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     var topCardView: CardView?
     
     @objc fileprivate func handleLike() {
+        handleSwipeAnimation(translation: 700, angle: 15)
+    }
+    
+    @objc fileprivate func handleDislike() {
         
-        UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-            self.topCardView?.frame = CGRect(x: 600, y: 0, width: self.topCardView!.frame.width, height: self.topCardView!.frame.height)
-            let angle = 15 * CGFloat.pi / 180
-            self.topCardView?.transform = CGAffineTransform(rotationAngle: angle)
+        handleSwipeAnimation(translation: -700, angle: -15)
+    }
+    
+    fileprivate func handleSwipeAnimation(translation: CGFloat, angle: CGFloat) {
+        let duration = 0.5
+        let translationAnimation = CABasicAnimation(keyPath: "position.x")
+        translationAnimation.toValue = translation
+        translationAnimation.duration = duration
+        translationAnimation.fillMode = .forwards
+        translationAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        translationAnimation.isRemovedOnCompletion = false
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = angle * CGFloat.pi / 180
+        rotationAnimation.duration = duration
+        
+        let cardView = topCardView
+        topCardView = cardView?.nextCardView
+        
+        CATransaction.setCompletionBlock {
+            cardView?.removeFromSuperview()
             
-        }) { (_) in
-            self.topCardView?.removeFromSuperview()
-            self.topCardView = self.topCardView?.nextCardView
         }
-
+        cardView?.layer.add(translationAnimation, forKey: "translation")
+        cardView?.layer.add(rotationAnimation, forKey: "rotation")
         
-        
-        
+        CATransaction.commit()
     }
     
     

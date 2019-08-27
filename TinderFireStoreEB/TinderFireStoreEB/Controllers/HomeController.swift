@@ -131,13 +131,51 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     
     var topCardView: CardView?
     
-    @objc fileprivate func handleLike() {
+    @objc func handleLike() {
+        saveSwipeInformationToFirestore(didLike: 1)
         handleSwipeAnimation(translation: 700, angle: 15)
     }
     
-    @objc fileprivate func handleDislike() {
-        
+    @objc func handleDislike() {
+        saveSwipeInformationToFirestore(didLike: 0)
         handleSwipeAnimation(translation: -700, angle: -15)
+    }
+    
+    fileprivate func saveSwipeInformationToFirestore(didLike: Int) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let cardUID = topCardView?.cardViewModel.uid else { return }
+        
+        let documentData = [cardUID: didLike]
+        
+        Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch document ", err)
+                return
+            }
+            
+            if snapshot?.exists == true {
+                Firestore.firestore().collection("swipes").document(uid).updateData(documentData) { (err) in
+                    if let err = err {
+                        print("FFAIL TO UPDATE>>> ERR  ", err)
+                        return
+                    }
+                    
+                    print("SWIPE SUCCESS")
+                }
+                
+            } else {
+                
+                Firestore.firestore().collection("swipes").document(uid).setData(documentData) { (err) in
+                    if let err = err {
+                        print("FAILED TO SAVE SWIPE>>>,", err)
+                        return
+                    }
+                    
+                    print("SWIPE SUCCESS")
+                }
+            }
+        }
+        
     }
     
     fileprivate func handleSwipeAnimation(translation: CGFloat, angle: CGFloat) {

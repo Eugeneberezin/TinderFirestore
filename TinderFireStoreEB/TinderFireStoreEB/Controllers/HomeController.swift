@@ -81,7 +81,9 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
                 return
             }
             self.user = user
-            self.fetchUsersFromFirestore()
+            
+            self.fetchSwipes()
+            //self.fetchUsersFromFirestore()
         }
     }
     
@@ -131,7 +133,9 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             snapshot?.documents.forEach({ (documentSnapshot) in
                 let userDictionary = documentSnapshot.data()
                 let user = User(dictionary: userDictionary)
-                if user.uid != Auth.auth().currentUser?.uid {
+                let isNotCurrentUser = user.uid != Auth.auth().currentUser?.uid
+                let hasNotSwipedBefore = self.swipes[user.uid!] == nil
+                if isNotCurrentUser && hasNotSwipedBefore {
                     let cardView = self.setupCardFromUser(user: user)
                     
                     previousCardView?.nextCardView = cardView

@@ -85,6 +85,24 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         }
     }
     
+    
+    var swipes = [String: Int]()
+    
+    fileprivate func fetchSwipes() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, err) in
+            if let err = err {
+                print("failed to fetch swipes info for currently logged in user:", err)
+                return
+            }
+            
+            print("Swipes:", snapshot?.data() ?? "")
+            guard let data = snapshot?.data() as? [String: Int] else { return }
+            self.swipes = data
+            self.fetchUsersFromFirestore()
+        }
+    }
+    
     @objc fileprivate func handleRefresh() {
 
         if topCardView == nil {
@@ -143,39 +161,64 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     
     fileprivate func saveSwipeInformationToFirestore(didLike: Int) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
         guard let cardUID = topCardView?.cardViewModel.uid else { return }
         
         let documentData = [cardUID: didLike]
         
         Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, err) in
             if let err = err {
-                print("Failed to fetch document ", err)
+                print("Failed to fetch swipe document:", err)
                 return
             }
             
             if snapshot?.exists == true {
                 Firestore.firestore().collection("swipes").document(uid).updateData(documentData) { (err) in
                     if let err = err {
-                        print("FFAIL TO UPDATE>>> ERR  ", err)
+                        print("Failed to save swipe data:", err)
                         return
                     }
-                    
-                    print("SWIPE SUCCESS")
+                    print("Successfully updated swipe....")
+                    self.checkIfMatchExists(cardUID: cardUID)
                 }
-                
             } else {
-                
                 Firestore.firestore().collection("swipes").document(uid).setData(documentData) { (err) in
                     if let err = err {
-                        print("FAILED TO SAVE SWIPE>>>,", err)
+                        print("Failed to save swipe data:", err)
                         return
                     }
-                    
-                    print("SWIPE SUCCESS")
+                    print("Successfully saved swipe....")
+                    self.checkIfMatchExists(cardUID: cardUID)
                 }
             }
         }
+    }
+    
+    fileprivate func checkIfMatchExists(cardUID: String) {
+        // How to detect our match between two users?
+        print("Detecting match")
         
+        Firestore.firestore().collection("swipes").document(cardUID).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch document for card user:", err)
+                return
+            }
+            
+            guard let data = snapshot?.data() else { return }
+            print(data)
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+            let hasMatched = data[uid] as? Int == 1
+            if hasMatched {
+                print("Has matched")
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = "Found a match"
+                hud.show(in: self.view)
+                hud.dismiss(afterDelay: 4)
+            }
+            
+        }
     }
     
     fileprivate func handleSwipeAnimation(translation: CGFloat, angle: CGFloat) {

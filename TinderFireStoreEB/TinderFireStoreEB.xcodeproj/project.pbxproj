@@ -33,6 +33,8 @@
 		0555A6EF22E9473E0091E712 /* CustomedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6EE22E9473E0091E712 /* CustomedTextField.swift */; };
 		0555A6F122ED0F0D0091E712 /* RegistrationViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0555A6F022ED0F0D0091E712 /* RegistrationViewModal.swift */; };
 		05703927231F5D7600939035 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05703926231F5D7600939035 /* MatchView.swift */; };
+		057039292320968A00939035 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057039282320968A00939035 /* SendMessageButton.swift */; };
+		0570392B23209CEF00939035 /* KeepSwipingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0570392A23209CEF00939035 /* KeepSwipingButton.swift */; };
 		057B354722DFF6CF00DFB567 /* HomeBottomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */; };
 		057B354922E0010B00DFB567 /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354822E0010B00DFB567 /* TopNavigationStackView.swift */; };
 		057B354B22E1659300DFB567 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057B354A22E1659300DFB567 /* CardView.swift */; };
@@ -89,6 +91,8 @@
 		0555A6EE22E9473E0091E712 /* CustomedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomedTextField.swift; sourceTree = "<group>"; };
 		0555A6F022ED0F0D0091E712 /* RegistrationViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModal.swift; sourceTree = "<group>"; };
 		05703926231F5D7600939035 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		057039282320968A00939035 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
+		0570392A23209CEF00939035 /* KeepSwipingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipingButton.swift; sourceTree = "<group>"; };
 		057B354622DFF6CF00DFB567 /* HomeBottomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlsStackView.swift; sourceTree = "<group>"; };
 		057B354822E0010B00DFB567 /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
 		057B354A22E1659300DFB567 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 				052A4B2822FBA09D00F1DCA2 /* SettingsCell.swift */,
 				052A4B2A22FF9E6800F1DCA2 /* AgeRangeCell.swift */,
 				05703926231F5D7600939035 /* MatchView.swift */,
+				057039282320968A00939035 /* SendMessageButton.swift */,
+				0570392A23209CEF00939035 /* KeepSwipingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -483,11 +489,13 @@
 				052A4B2F2300B40600F1DCA2 /* Firebase+Utils.swift in Sources */,
 				050D982023039CF80055E1F1 /* UserDetailsController.swift in Sources */,
 				0555A6EF22E9473E0091E712 /* CustomedTextField.swift in Sources */,
+				057039292320968A00939035 /* SendMessageButton.swift in Sources */,
 				050D98262306240E0055E1F1 /* Extensions+UIView.swift in Sources */,
 				057B354B22E1659300DFB567 /* CardView.swift in Sources */,
 				052A4B2722FA5D9E00F1DCA2 /* SettingsController.swift in Sources */,
 				057B354922E0010B00DFB567 /* TopNavigationStackView.swift in Sources */,
 				0555A6ED22E937C30091E712 /* RegistrationController.swift in Sources */,
+				0570392B23209CEF00939035 /* KeepSwipingButton.swift in Sources */,
 				0555A6A422E2DCB80091E712 /* User.swift in Sources */,
 				052A4B2922FBA09D00F1DCA2 /* SettingsCell.swift in Sources */,
 				050D982E230762790055E1F1 /* SwipingPhotosController.swift in Sources */,

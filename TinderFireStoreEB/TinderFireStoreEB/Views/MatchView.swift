@@ -7,14 +7,44 @@
 //
 
 import UIKit
+import Firebase
 
 class MatchView: UIView {
+    
+    var cardUID: String! {
+        didSet {
+            let query = Firestore.firestore().collection("users")
+            query.document(cardUID).getDocument { (snapshot, err) in
+                if let err = err {
+                    print("ERROR GETTING CARDUID ON MATCHVIEW>>>  ",err )
+                    return
+                }
+                guard let dictionary = snapshot?.data() else { return }
+                let cardUser = User(dictionary: dictionary)
+                guard let url = URL(string: cardUser.imageUrl1 ?? "") else { return }
+                self.cardUserImageView.sd_setImage(with: url)
+                self.descriptionLabel.text = "You and \(cardUser.name ?? "") have\nswiped right each other "
+            }
+            
+            Firestore.firestore().fetchCurrentUser { (user, err) in
+                if let err = err {
+                    print(err)
+                    return
+                }
+                
+                guard let url = URL(string: user?.imageUrl1 ?? "")  else { return }
+                self.currentUserImageView.sd_setImage(with: url)
+            }
+            
+        }
+    }
     
     fileprivate let itsAMatchView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "itsamatch"))
         iv.contentMode = .scaleAspectFill
         return iv
     }()
+    
     
     fileprivate let descriptionLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +96,51 @@ class MatchView: UIView {
         
         setupBlurView()
         setupLayout()
+        setupAnimations()
+    }
+    
+    
+    fileprivate func  setupAnimations() {
+        //starting positions
+        let angle = -30 * CGFloat.pi / 180
+        currentUserImageView.transform = CGAffineTransform(rotationAngle: -angle).concatenating(CGAffineTransform(translationX: 0, y: 500))
+        cardUserImageView.transform = CGAffineTransform(rotationAngle: angle).concatenating( CGAffineTransform(translationX: 0, y: -500))
+        // keyframe animations for segmented animations
+        
+        UIView.animateKeyframes(withDuration: 1.2, delay: 0, options: .calculationModeCubic, animations: {
+            //animation1
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.45, animations: {
+                self.currentUserImageView.transform = CGAffineTransform(rotationAngle: -angle)
+                self.cardUserImageView.transform = CGAffineTransform(rotationAngle: angle)
+            })
+            //animation2
+            UIView.addKeyframe(withRelativeStartTime: 0.55, relativeDuration: 0.3, animations: {
+                self.currentUserImageView.transform = .identity
+                self.cardUserImageView.transform = .identity
+                
+            })
+            
+        }) { (_) in
+            
+        }
+        
+        sendMessageButton.transform = CGAffineTransform(translationX: -500, y: 0)
+        keetSwipingButton.transform = CGAffineTransform(translationX: 500, y: 0)
+        
+        UIView.animate(withDuration: 1.5, delay: 0.6, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.sendMessageButton.transform = .identity
+            self.keetSwipingButton.transform = .identity
+        }) { (_) in
+            
+        }
+//        UIView.animate(withDuration: 1.6, animations: {
+//        self.sendMessageButton.transform = .identity
+//        self.keetSwipingButton.transform = .identity
+//
+//
+//        }) { (_) in
+//
+//        }
     }
     
     let size: CGFloat  = 140

@@ -233,6 +233,7 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     
     fileprivate func presentMatchView(cardUID: String) {
         let matchView = MatchView()
+        matchView.cardUID = cardUID
         view.addSubview(matchView)
         matchView.fillSuperview()
     }

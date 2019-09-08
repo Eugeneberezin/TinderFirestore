@@ -78,8 +78,11 @@ class MatchView: UIView {
         let button = KeepSwipingButton(type: .system)
         button.setTitle("Keep swiping", for: .normal)
         button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
+    
+    
     
     fileprivate let cardUserImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE"))

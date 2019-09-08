@@ -82,8 +82,14 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             }
             self.user = user
             
-            self.fetchSwipes()
-            //self.fetchUsersFromFirestore()
+            if self.swipes == [:] {
+               self.fetchUsersFromFirestore()
+            } else {
+              self.fetchSwipes()
+            }
+            
+            
+            
         }
     }
     
@@ -107,9 +113,8 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     
     @objc fileprivate func handleRefresh() {
 
-        if topCardView == nil {
-            fetchUsersFromFirestore()
-        }
+        cardsDeckView.subviews.forEach({$0.removeFromSuperview()})
+        fetchUsersFromFirestore()
 
     }
     

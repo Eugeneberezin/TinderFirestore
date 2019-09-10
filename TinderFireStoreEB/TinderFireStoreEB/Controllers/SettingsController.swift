@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 import SDWebImage
+import LBTATools
 
 protocol SettingsControllerDelegate {
     func didSetSettings()

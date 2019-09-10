@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import LBTATools
 
 protocol CardViewDelegate {
     func didTapMoreInfo(cardViewModel: CardViewModel)

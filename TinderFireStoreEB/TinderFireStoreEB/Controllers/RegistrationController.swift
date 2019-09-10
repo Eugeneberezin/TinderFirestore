@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import JGProgressHUD
+import LBTATools
 
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

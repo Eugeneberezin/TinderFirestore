@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LBTATools
 
 class AgeRangeCell: UITableViewCell {
     

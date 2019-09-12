@@ -147,7 +147,10 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             
             snapshot?.documents.forEach({ (documentSnapshot) in
                 let userDictionary = documentSnapshot.data()
+                
                 let user = User(dictionary: userDictionary)
+                self.users[user.uid ?? ""] = user
+                
                 let isNotCurrentUser = user.uid != Auth.auth().currentUser?.uid
 //                let hasNotSwipedBefore = self.swipes[user.uid!] == nil
                 let hasNotSwipedBefore = true
@@ -166,6 +169,9 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             })
         }
     }
+    
+    
+    var users = [String: User]()
     
     var topCardView: CardView?
     
@@ -237,10 +243,28 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
             if hasMatched {
                 print("Has matched")
                 self.presentMatchView(cardUID: cardUID)
-//                let hud = JGProgressHUD(style: .dark)
-//                hud.textLabel.text = "Found a match"
-//                hud.show(in: self.view)
-//                hud.dismiss(afterDelay: 4)
+                
+                guard let cardUsers = self.users[cardUID] else { return }
+                
+                let data = ["name": cardUsers.name ?? "", "profileImageUrl": cardUsers.imageUrl1 ?? "" , "uid": cardUID, "timestamp": Timestamp(date: Date())] as [String : Any]
+                Firestore.firestore().collection("matches_messages").document(uid).collection("matches").document(cardUID).setData(data, completion: { (err) in
+                    if let err = err {
+                        print("Fail to fetch matches>>> ", err)
+                        return
+                    }
+                })
+                
+                guard let currentUser = self.user else { return }
+                
+                let otherMatchData = ["name": currentUser.name ?? "", "profileImageUrl": currentUser.imageUrl1 ?? "" , "uid": cardUID, "timestamp": Timestamp(date: Date())] as [String : Any]
+                Firestore.firestore().collection("matches_messages").document(cardUID).collection("matches").document(uid).setData(otherMatchData, completion: { (err) in
+                    if let err = err {
+                        print("Fail to fetch matches>>> ", err)
+                        return 
+                    }
+                })
+                
+
             }
             
         }

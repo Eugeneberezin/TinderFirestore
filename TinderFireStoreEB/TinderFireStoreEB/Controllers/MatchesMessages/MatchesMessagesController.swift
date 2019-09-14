@@ -54,7 +54,11 @@ class MatchesMessagesController: LBTAListController<MatchCell, Match>, UICollect
         return .init(width: 120, height: 140)
     }
     
-   
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let match = items[indexPath.item]
+        let chatLogController = ChatLogController(match: match)
+        navigationController?.pushViewController(chatLogController, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

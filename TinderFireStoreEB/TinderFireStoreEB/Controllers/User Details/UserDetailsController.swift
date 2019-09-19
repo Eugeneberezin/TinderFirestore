@@ -8,7 +8,16 @@
 
 import UIKit
 
+protocol UserDetailsControllerDelegate {
+    func handleLikeOnUserDetail()
+    func handleDislikeOnUserDetail()
+    
+}
+
 class UserDetailsController: UIViewController, UIScrollViewDelegate {
+
+    var userDetailsControllerDelegate: UserDetailsControllerDelegate? 
+
     
     var cardViewModel: CardViewModel! {
         didSet {
@@ -16,6 +25,7 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
             swipingPhotosController.cardViewModel = cardViewModel
         }
     }
+    
     
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -48,7 +58,6 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
     }()
     
     lazy var dislikeButton = self.createButton(image: #imageLiteral(resourceName: "dismiss_circle"), selector: #selector(handleDislike), accessibilityID: "Dislike")
-    lazy var superLikeButton = self.createButton(image: #imageLiteral(resourceName: "super_like_circle"), selector: #selector(handleDislike), accessibilityID: "SUPERLIKE")
     lazy var likeButton = self.createButton(image: #imageLiteral(resourceName: "like_circle"), selector: #selector(handleDislike), accessibilityID: "LIKE")
     
 
@@ -56,6 +65,7 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         setUpLayout()
     }
+    
     
     fileprivate let extrtaSwipingHeight: CGFloat = 80
     
@@ -65,12 +75,25 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
         imageView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width + extrtaSwipingHeight)
     }
     
+    
+   
+    
     @objc fileprivate func handleDislike() {
-        print("Handle dislike")
+        handleTapDismiss()
+        self.userDetailsControllerDelegate?.handleDislikeOnUserDetail()
+   
+        
     }
     
+    @objc fileprivate func handleLike() {
+        handleTapDismiss()
+        self.userDetailsControllerDelegate?.handleLikeOnUserDetail()
+        
+    }
+    
+    
     fileprivate func setUpBottomControlors() {
-        let buttonStackView = UIStackView(arrangedSubviews: [dislikeButton, superLikeButton, likeButton])
+        let buttonStackView = UIStackView(arrangedSubviews: [dislikeButton, likeButton])
         buttonStackView.distribution = .fillEqually
         view.addSubview(buttonStackView)
         buttonStackView.axis = .horizontal

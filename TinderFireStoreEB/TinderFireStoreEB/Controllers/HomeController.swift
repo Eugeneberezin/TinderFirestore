@@ -11,7 +11,18 @@ import Firebase
 import JGProgressHUD
 import LBTATools
 
-class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate,CardViewDelegate {
+class HomeController: UIViewController, SettingsControllerDelegate, LoginControllerDelegate,CardViewDelegate, UserDetailsControllerDelegate {
+    func handleLikeOnUserDetail() {
+        handleLike()
+        handleSwipeAnimation(translation: 700, angle: 15)
+        
+    }
+    
+    func handleDislikeOnUserDetail() {
+        handleDislike()
+        handleSwipeAnimation(translation: 700, angle: 15)
+    }
+    
     func didRemoveCard(cardView: CardView) {
         
         self.topCardView?.removeFromSuperview()
@@ -61,6 +72,8 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
         if Auth.auth().currentUser == nil {
             let registrationController = RegistrationController()
             registrationController.delegate = self
+            let userDetailController = UserDetailsController()
+            userDetailController.userDetailsControllerDelegate = self
             let navController = UINavigationController(rootViewController: registrationController)
             present(navController, animated: true)
         }
@@ -133,7 +146,7 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     fileprivate func fetchUsersFromFirestore() {
         guard let minAge = user?.minSeekingAge, let maxAge = user?.maxSeekingAge else { return }
         // i will introduce pagination here to page through 2 users at a time
-        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
+        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge).limit(to: 5)
         topCardView = nil
         query.getDocuments { (snapshot, err) in
             self.hud.dismiss()
@@ -176,11 +189,15 @@ class HomeController: UIViewController, SettingsControllerDelegate, LoginControl
     var topCardView: CardView?
     
     @objc func handleLike() {
+        let userDetailController = UserDetailsController()
+        userDetailController.userDetailsControllerDelegate = self
         saveSwipeInformationToFirestore(didLike: 1)
         handleSwipeAnimation(translation: 700, angle: 15)
     }
     
     @objc func handleDislike() {
+        let userDetailController = UserDetailsController()
+        userDetailController.userDetailsControllerDelegate = self
         saveSwipeInformationToFirestore(didLike: 0)
         handleSwipeAnimation(translation: -700, angle: -15)
     }

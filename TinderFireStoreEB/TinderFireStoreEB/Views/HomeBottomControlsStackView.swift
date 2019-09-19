@@ -21,24 +21,24 @@ class HomeBottomControlsStackView: UIStackView {
     
     let refreshButton = createButton(image: #imageLiteral(resourceName: "refresh_circle"), accessibilityID: "REFRESH_BUTTON")
     let dislikeButton = createButton(image: #imageLiteral(resourceName: "dismiss_circle"), accessibilityID: "DISLIKE_BUTTON")
-    let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"), accessibilityID: "STAR_BUTTON")
+    //let starButton = createButton(image: #imageLiteral(resourceName: "super_like_circle"), accessibilityID: "STAR_BUTTON")
     let likeButton = createButton(image: #imageLiteral(resourceName: "like_circle"), accessibilityID: "FAVORITE_BUTTON")
-    let boostButton = createButton(image: #imageLiteral(resourceName: "boost_circle"), accessibilityID: "BOOST_BUTTON")
+    //let boostButton = createButton(image: #imageLiteral(resourceName: "boost_circle"), accessibilityID: "BOOST_BUTTON")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         distribution = .fillEqually
         heightAnchor.constraint(equalToConstant: 120).isActive = true
         
-        [refreshButton, dislikeButton, starButton, likeButton, boostButton].forEach { (button) in
+        [dislikeButton, refreshButton, likeButton].forEach { (button) in
             self.addArrangedSubview(button)
         }
         
         refreshButton.accessibilityIdentifier = "REFRESH_BUTTON"
         dislikeButton.accessibilityIdentifier = "DISLIKE_BUTTON"
-        starButton.accessibilityIdentifier = "STAR_BUTTON"
+       // starButton.accessibilityIdentifier = "STAR_BUTTON"
         likeButton.accessibilityIdentifier = "HEART_BUTTON"
-        boostButton.accessibilityIdentifier = "BOOST_BUTTON"
+       // boostButton.accessibilityIdentifier = "BOOST_BUTTON"
         
         
         

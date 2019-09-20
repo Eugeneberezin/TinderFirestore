@@ -81,8 +81,27 @@ class ChatLogController: LBTAListController<MessageCell, Message>, UICollectionV
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    lazy var redView: UIView = {
+        return CustomInputAccessoryView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 50))
+    }()
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return redView
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.keyboardDismissMode = .interactive
         
         collectionView.alwaysBounceVertical = true
         items = [

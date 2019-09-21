@@ -13,7 +13,7 @@ class MessageNavBar: UIView {
     let userProfileImageView = UIImageView(image: #imageLiteral(resourceName: "42490FE4-66B9-488A-9F46-83B5DB38F4AE"), contentMode: .scaleAspectFill)
     let nameLabel = UILabel(text: "User Name", font: .systemFont(ofSize: 16))
     
-    let backButton = UIButton(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate), tintColor: #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), target: self, action: #selector(handleBack))
+    let messageBackButton = UIButton(image: #imageLiteral(resourceName: "back").withRenderingMode(.alwaysTemplate), tintColor: #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1), target: self, action: #selector(handleBack))
     let flagButton = UIButton(image: #imageLiteral(resourceName: "flag").withRenderingMode(.alwaysOriginal), tintColor: #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1))
     
     fileprivate let match: Match
@@ -41,7 +41,7 @@ class MessageNavBar: UIView {
             alignment: .center
         )
         
-        hstack(backButton.withWidth(50),
+        hstack(messageBackButton.withWidth(50),
                middleStack,
                flagButton).withMargins(.init(top: 0, left: 4, bottom: 0, right: 16))
         

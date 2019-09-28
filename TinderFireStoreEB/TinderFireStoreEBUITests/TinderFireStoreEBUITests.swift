@@ -31,6 +31,8 @@ class TinderFireStoreEBUITests: XCTestCase {
 
     func testExample() {
         
+                
+        
        let settingsButton = XCUIApplication().buttons["SETTINGS_BUTTON"]
        let image1button = XCUIApplication().tables.buttons["IMAGE1BUTTON"]
        let selectPhotoButton = XCUIApplication().buttons["Select Photo"]

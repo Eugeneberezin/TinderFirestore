@@ -86,7 +86,22 @@ class MatchesHeader: UICollectionReusableView {
 }
 
 
-class RecentMessageCell: LBTAListCell<UIColor> {
+struct RecentMessage {
+    let text, uid, name, profileImageURL: String
+    let timestamp: Timestamp
+    
+    init(dictionary: [String: Any]) {
+        self.text = dictionary["text"] as? String ?? ""
+        self.uid = dictionary["uid"] as? String ?? ""
+        self.name = dictionary["name"] as? String ?? ""
+        self.profileImageURL = dictionary["profileImageUrl"] as? String ?? ""
+        
+        self.timestamp = dictionary["timestamp"] as? Timestamp ?? Timestamp(date: Date())
+    }
+    
+}
+
+class RecentMessageCell: LBTAListCell<RecentMessage> {
     
     
     
@@ -95,11 +110,13 @@ class RecentMessageCell: LBTAListCell<UIColor> {
     let messageLabel = UILabel(text: "Some long text message here so it does look like a message", font: .systemFont(ofSize: 16), textColor: .gray, numberOfLines: 2)
     
     
-    override var item: UIColor! {
+    override var item: RecentMessage! {
         
     
         didSet {
-            
+            userNameLabel.text = item.name
+            messageLabel.text = item.text
+            userProfileImageView.sd_setImage(with: URL(string: item.profileImageURL))
         }
     }
     
@@ -121,7 +138,40 @@ class RecentMessageCell: LBTAListCell<UIColor> {
 
 
 
-class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, UIColor, MatchesHeader>, UICollectionViewDelegateFlowLayout {
+class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, RecentMessage, MatchesHeader>, UICollectionViewDelegateFlowLayout {
+    
+    var recentMessagesDictionary = [String: RecentMessage]()
+    
+    fileprivate func fetchRecentMessages() {
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { (querySnapshot, err) in
+            if let err = err {
+                print("Error fetching recent messages>>>>", err)
+                return
+            }
+            
+            querySnapshot?.documentChanges.forEach({ (change) in
+                
+                if change.type == .added || change.type == .modified {
+                    let dictionary = change.document.data()
+                    let recentMessage = RecentMessage(dictionary: dictionary)
+                    self.recentMessagesDictionary[recentMessage.uid] = recentMessage
+                }
+            })
+            
+            self.resetItems()
+        }
+        
+    }
+    
+    fileprivate func resetItems() {
+        let values = Array(recentMessagesDictionary.values)
+        items = values.sorted(by: { (rm1, rm2) -> Bool in
+            return rm1.timestamp.compare(rm2.timestamp) == .orderedDescending
+        })
+        collectionView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -155,8 +205,17 @@ class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchRecentMessages()
         
-        items = [.red, .blue, .green, .magenta]
+        items = [
+//            .init(text: "Message for message cell", uid: "blank", name: "Eugene", profileImageURL: "https://firebasestorage.googleapis.com/v0/b/matchfirestoreeb.appspot.com/o/images%2F4B140A9D-1C1C-4F57-88E4-AD7D4F9EB5C3?alt=media&token=10a6727d-11e4-4659-becb-b48e3ecce6fb", timestamp: Timestamp(date: .init())),
+//            .init(text: "Message for message cell", uid: "blank", name: "Eugene", profileImageURL: "https://firebasestorage.googleapis.com/v0/b/matchfirestoreeb.appspot.com/o/images%2F4B140A9D-1C1C-4F57-88E4-AD7D4F9EB5C3?alt=media&token=10a6727d-11e4-4659-becb-b48e3ecce6fb", timestamp: Timestamp(date: .init())),
+//            .init(text: "Message for message cell", uid: "blank", name: "Eugene", profileImageURL: "https://firebasestorage.googleapis.com/v0/b/matchfirestoreeb.appspot.com/o/images%2F4B140A9D-1C1C-4F57-88E4-AD7D4F9EB5C3?alt=media&token=10a6727d-11e4-4659-becb-b48e3ecce6fb", timestamp: Timestamp(date: .init())),
+//            .init(text: "Message for message cell", uid: "blank", name: "Eugene", profileImageURL: "https://firebasestorage.googleapis.com/v0/b/matchfirestoreeb.appspot.com/o/images%2F4B140A9D-1C1C-4F57-88E4-AD7D4F9EB5C3?alt=media&token=10a6727d-11e4-4659-becb-b48e3ecce6fb", timestamp: Timestamp(date: .init()))
+        
+        ]
+        
+        
         collectionView.scrollIndicatorInsets.top = 150
         collectionView.backgroundColor = .white
         view.addSubview(topCoverView)
@@ -178,5 +237,6 @@ class MatchesMessagesController: LBTAListHeaderController<RecentMessageCell, UIC
         navigationController?.popViewController(animated: true)
     }
 }
+
 
 
